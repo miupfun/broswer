@@ -1,5 +1,2 @@
-/* You can add global styles to this file, and also import other style files */
-*{
-  margin: 0;
-  padding: 0;
-}
+@import './style/material/_index.scss';
+@import './style/reset/_index.scss';
