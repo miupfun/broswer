@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BrowserComponent } from './browser.component';
-import { RouterModule } from "@angular/router";
-import { MatButtonModule } from '@angular/material/button';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MpWindowDragModule } from '../../components/window-drag/index';
-import { MpWindowSelectModule } from '../../components/window-select/index';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {BrowserComponent} from './browser.component';
+import {RouterModule} from "@angular/router";
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MpWindowDragModule} from '../../components/window-drag';
+import {MpWindowSelectModule} from '../../components/window-select';
+import {NavigationBarComponent} from './components/navigation-bar/navigation-bar.component';
+import {WindowControllerModule} from "../../components/window-controller/window-controller.module";
+import { BroswerWebviewComponent } from './components/broswer-webview/broswer-webview.component';
 
 
 @NgModule({
-  declarations: [BrowserComponent],
+  declarations: [BrowserComponent, NavigationBarComponent, BroswerWebviewComponent],
   imports: [
     CommonModule,
-    MatButtonModule,
     FlexLayoutModule,
     MpWindowDragModule,
     MpWindowSelectModule,
@@ -21,7 +22,8 @@ import { MpWindowSelectModule } from '../../components/window-select/index';
         path: '',
         component: BrowserComponent
       }
-    ])
+    ]),
+    WindowControllerModule
   ]
 })
 export class BrowserModule {

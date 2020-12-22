@@ -1,24 +1,21 @@
-import { app, BrowserWindow } from 'electron';
-import { DemoClass } from './demo';
-import { is, api, showAboutWindow, openSystemPreferences } from 'electron-util';
-import * as Path from 'path';
+import {app, BrowserWindow} from 'electron';
+import {is, openSystemPreferences} from 'electron-util';
 
 app.on('ready', () => {
-  new DemoClass().say()
-  console.log(is.macos)
   const w = new BrowserWindow({
     show: false,
     frame: !is.windows,
     titleBarStyle: "hidden",
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true,
       nodeIntegrationInSubFrames: false,
       nodeIntegrationInWorker: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webviewTag: true
     }
   });
   w.loadURL(process.env.$RENDER as string).then(() => {
     w.show();
-    openSystemPreferences('security')
   });
 });

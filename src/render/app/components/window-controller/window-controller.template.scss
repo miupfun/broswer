@@ -1,0 +1,24 @@
+.mp-window-ctrl {
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: transparent;
+
+  .mp-ctrl-btn {
+    height: 36px;
+    width: 47px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .iconfont {
+      font-size: 12px;
+    }
+  }
+}

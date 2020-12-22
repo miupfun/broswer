@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-browser',
+  selector: 'mp-browser',
   templateUrl: './browser.component.html',
   styleUrls: ['./browser.component.scss']
 })

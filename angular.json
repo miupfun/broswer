@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "borswer": {
+        "broswer": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -37,12 +37,12 @@
             },
             "root": "",
             "sourceRoot": "src/render",
-            "prefix": "app",
+            "prefix": "mp",
             "architect": {
                 "build": {
                     "builder": "@miup/ngx-electron-builder:build",
                     "options": {
-                        "outputPath": "dist/borswer",
+                        "outputPath": "dist/broswer",
                         "index": "src/render/index.html",
                         "main": "src/render/main.ts",
                         "polyfills": "src/render/polyfills.ts",
@@ -57,7 +57,6 @@
                         ],
                         "scripts": [],
                         "mainProcess": "src/main/index.ts",
-                        "mainProcessOutputName": "index.js",
                         "mainProcessTsConfig": "tsconfig.main.json"
                     },
                     "configurations": {
@@ -93,26 +92,22 @@
                 "serve": {
                     "builder": "@miup/ngx-electron-builder:dev-server",
                     "options": {
-                        "browserTarget": "borswer:build"
+                        "browserTarget": "broswer:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "borswer:build:production"
+                            "browserTarget": "broswer:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "borswer:build"
+                        "browserTarget": "broswer:build"
                     }
                 }
             }
         }
     },
-    "cli": {
-      "analytics": false
-
-    },
-    "defaultProject": "borswer"
+    "defaultProject": "broswer"
 }

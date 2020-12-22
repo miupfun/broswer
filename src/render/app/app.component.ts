@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template:`<router-outlet></router-outlet>`
+  selector: 'mp-root',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'borswer';
