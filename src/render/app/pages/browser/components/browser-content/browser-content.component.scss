@@ -1,0 +1,14 @@
+.browser-content {
+  width: 100%;
+  height: 100%;
+
+  .browser-inner-box {
+    display: none;
+    width: 100%;
+    height: 100%;
+
+    &.show {
+      display: block;
+    }
+  }
+}

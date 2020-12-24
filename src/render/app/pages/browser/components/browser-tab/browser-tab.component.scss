@@ -1,0 +1,27 @@
+.browser-tab-container {
+  width: 100%;
+  height: 100%;
+
+  .browser-tab-item {
+    cursor: pointer;
+    min-width: 40px;
+    max-width: 100%;
+
+    &.active {
+      background-color: darkgrey;
+    }
+
+    &:not(:last-child) {
+      border-right: 1px solid darkgrey;
+    }
+
+    .tab-icon {
+      width: 40px;
+      text-align: center;
+    }
+
+    .tab-body {
+      padding-right: 10px;
+    }
+  }
+}

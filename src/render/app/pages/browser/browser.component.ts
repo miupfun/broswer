@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Select} from "@ngxs/store";
+import {BROWSER_STATE} from "./store/browser.state";
+import {Observable} from "rxjs";
+import {BrowserModel} from "./store/browser.model";
 
 @Component({
   selector: 'mp-browser',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrowserComponent implements OnInit {
 
-  constructor() { }
+  @Select(BROWSER_STATE)
+  $browserState: Observable<BrowserModel> | undefined;
 
-  ngOnInit(): void {
+
+  @Select(BROWSER_STATE, 'currentTabIndex')
+  $index: Observable<number> | undefined;
+  browserModel: BrowserModel | undefined;
+
+  constructor() {
   }
 
+  ngOnInit(): void {
+    this.$browserState?.subscribe((value) => {
+      console.log('change')
+      this.browserModel = value
+    })
+
+    this.$index?.subscribe((s) => {
+      console.log('change -----')
+      console.log(s)
+    })
+  }
 }

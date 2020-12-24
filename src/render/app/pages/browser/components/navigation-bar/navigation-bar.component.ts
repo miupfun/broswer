@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Store} from "@ngxs/store";
+import {BrowserActionsCreateTab, BrowserActionsSelectTab} from "../../store/browser.actions";
+import {BROWSER_STATE} from "../../store/browser.state";
 
 @Component({
   selector: 'mp-navigation-bar',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+  @Input('color')
+  color: string = '';
+
+  constructor(private store: Store) {
+  }
 
   ngOnInit(): void {
+  }
+
+  addTab() {
+    const length = this.store.selectSnapshot(BROWSER_STATE).tabs.length
+    this.store.dispatch(new BrowserActionsCreateTab()).subscribe(() => {
+      this.store.dispatch(new BrowserActionsSelectTab(length)).subscribe()
+    })
   }
 
 }
