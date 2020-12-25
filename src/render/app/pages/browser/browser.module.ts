@@ -13,10 +13,12 @@ import {BrowserContentComponent} from './components/browser-content/browser-cont
 import {NgxsModule} from "@ngxs/store";
 import {BrowserState} from "./store/browser.state";
 import {FormsModule} from "@angular/forms";
+import {BrowserTabItemComponent} from "./components/browser-tab-item/browser-tab-item.component";
+import {BrowserContentItemComponent} from "./components/browser-content-item/browser-content-item.component";
 
 
 @NgModule({
-  declarations: [BrowserComponent, NavigationBarComponent, BroswerWebviewComponent, BrowserTabComponent, BrowserContentComponent],
+  declarations: [BrowserComponent, NavigationBarComponent, BroswerWebviewComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

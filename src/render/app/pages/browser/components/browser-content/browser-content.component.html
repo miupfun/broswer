@@ -1,16 +1,12 @@
-<ng-container *ngIf="$currentTabIndex | async as currentTabIndex">
-  <ng-container *ngIf="$tabs | async as tabs">
-    <div class="browser-content">
-      <div class="browser-inner-box" *ngFor="let tab of tabs;let i = index"
-           [class.show]="i===currentTabIndex">
-        <mp-broswer-webview [src]="tab.url"
-                            (themeChange)="themeChange(i,$event)"
-                            (titleChange)="titleChange(i,$event)"
-                            (iconChange)="iconChange(i,$event)"
-                            (newWindow)="createTab(i,$event)"
-        >
-        </mp-broswer-webview>
-      </div>
-    </div>
-  </ng-container>
-</ng-container>
+<div class="browser-content" *ngIf="$store|async  as browserState">
+  <div class="browser-inner-box" *ngFor="let tab of browserState.tabs;let i = index"
+       [class.show]="i===browserState.currentTabIndex">
+    <mp-broswer-webview [src]="tab.url"
+                        (themeChange)="themeChange(i,$event)"
+                        (titleChange)="titleChange(i,$event)"
+                        (iconChange)="iconChange(i,$event)"
+                        (newWindow)="createTab(i,$event)"
+    >
+    </mp-broswer-webview>
+  </div>
+</div>

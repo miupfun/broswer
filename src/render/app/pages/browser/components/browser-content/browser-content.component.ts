@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Select, Selector, Store} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {BrowserActionsCreateTab, BrowserActionsSelectTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
-import {BrowserTabEntity} from "../../../../entitys/browser-tab.entity";
 import {BROWSER_STATE} from "../../store/browser.state";
 import {Observable} from "rxjs";
+import {BrowserModel} from "../../store/browser.model";
 
 @Component({
   selector: 'mp-browser-content',
@@ -12,19 +12,13 @@ import {Observable} from "rxjs";
 })
 export class BrowserContentComponent implements OnInit {
 
-  @Select(BROWSER_STATE, 'tabs')
-  $tabs: Observable<BrowserTabEntity[]> | undefined;
-
-  @Select(BROWSER_STATE, 'currentTabIndex')
-  $currentTabIndex: Observable<number> | undefined
+  @Select(BROWSER_STATE)
+  $store: Observable<BrowserModel> | undefined;
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.$tabs?.subscribe(s => {
-      console.log(s)
-    })
   }
 
   themeChange(index: number, theme: string) {

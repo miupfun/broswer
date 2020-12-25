@@ -20,3 +20,10 @@ export class BrowserActionsSelectTab {
   constructor(public index: number) {
   }
 }
+
+export class BrowserActionsCloseTab {
+  static readonly type = '[browser] BrowserActionsCloseTab'
+
+  constructor(public index: number) {
+  }
+}

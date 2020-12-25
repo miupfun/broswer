@@ -1,0 +1,21 @@
+<div class="browser-tab-item full"
+     mpWinDrag="false"
+     fxLayout="flex"
+     fxLayoutAlign="start center"
+     (click)="selectTab()"
+     [class.active]="active">
+  <div class="tab-icon">
+    <img *ngIf="tab?.icon;else emptyIcon" [src]="tab?.icon">
+    <ng-template #emptyIcon>
+      <i class="iconfont icon-empty"></i>
+    </ng-template>
+  </div>
+  <div class="tab-body">
+    {{tab?.title||tab?.url}}
+  </div>
+  <div class="tab-right-menu">
+    <div class="tab-menu-item" (click)="closeTab($event)">
+      <i class="iconfont icon-close"></i>
+    </div>
+  </div>
+</div>

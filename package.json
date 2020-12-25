@@ -7,7 +7,8 @@
   },
   "private": true,
   "dependencies": {
-    "electron-util": "^0.14.2"
+    "electron-util": "^0.14.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.5",
@@ -24,8 +25,10 @@
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
     "@miup/ngx-electron-builder": "^1.4.7",
+    "@ngxs/devtools-plugin": "^3.7.1",
     "@ngxs/store": "^3.7.1",
     "@types/node": "^12.11.1",
+    "@types/uuid": "^8.3.0",
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
     "rxjs": "~6.6.0",

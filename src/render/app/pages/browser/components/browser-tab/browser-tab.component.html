@@ -1,20 +1,17 @@
-<div class="browser-tab-container" fxLayout="flex">
-  <div class="browser-tab-item"
-       mpWinDrag="false"
-       fxLayout="flex"
-       fxLayoutAlign="start center"
-       *ngFor="let tab of browserModel?.tabs;let i =index"
-       (click)="selectTab(i)"
-       [class.active]="browserModel?.currentTabIndex===i"
-  >
-    <div class="tab-icon">
-      <img *ngIf="tab.icon;else emptyIcon" [src]="tab.icon" width="18" height="18">
-      <ng-template #emptyIcon>
-        <i class="iconfont icon-empty"></i>
-      </ng-template>
-    </div>
-    <div class="tab-body">
-      <p>{{tab.title}}</p>
-    </div>
+<div class="browser-tab-container full" fxLayout="flex" *ngIf="$browserState|async as browserModel">
+  <div
+    class="full-h browser-tab-item-container"
+    mpWinDrag="false"
+    fxFlex="100%"
+    fxLayout="flex"
+    *ngFor="let tab of browserModel?.tabs;let i =index"
+    fxLayoutAlign="start center">
+    <mp-browser-tab-item
+      class="full"
+      [tab]="tab"
+      [active]="i===browserModel?.currentTabIndex"
+      (select)="selectTab(i)"
+      (close)="closeTab(i)">
+    </mp-browser-tab-item>
   </div>
 </div>

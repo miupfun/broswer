@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {BROWSER_STATE, BrowserState} from "../../store/browser.state";
+import {Component, OnInit} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
-import {Observable} from "rxjs";
 import {BrowserModel} from "../../store/browser.model";
-import {BrowserActionsSelectTab} from "../../store/browser.actions";
+import {BrowserActionsCloseTab, BrowserActionsSelectTab} from "../../store/browser.actions";
+import {Observable} from "rxjs";
+import {BROWSER_STATE} from "../../store/browser.state";
 
 @Component({
   selector: 'mp-browser-tab',
@@ -12,17 +12,22 @@ import {BrowserActionsSelectTab} from "../../store/browser.actions";
 })
 export class BrowserTabComponent implements OnInit {
 
-  @Input()
-  browserModel: BrowserModel | undefined;
+  @Select(BROWSER_STATE)
+  $browserState: Observable<BrowserModel> | undefined
+
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-
   }
 
   selectTab(index: number) {
     this.store.dispatch(new BrowserActionsSelectTab(index))
   }
+
+  closeTab(index: number) {
+    this.store.dispatch(new BrowserActionsCloseTab(index))
+  }
+
 }
