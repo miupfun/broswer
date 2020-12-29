@@ -15,6 +15,7 @@ import {BrowserState} from "./store/browser.state";
 import {FormsModule} from "@angular/forms";
 import {BrowserTabItemComponent} from "./components/browser-tab-item/browser-tab-item.component";
 import {BrowserContentItemComponent} from "./components/browser-content-item/browser-content-item.component";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {BrowserContentItemComponent} from "./components/browser-content-item/bro
   imports: [
     CommonModule,
     FlexLayoutModule,
+    DragDropModule,
     MpWindowDragModule,
     MpWindowSelectModule,
     NgxsModule.forFeature([BrowserState]),

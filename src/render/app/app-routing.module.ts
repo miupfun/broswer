@@ -3,8 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'browser',
     loadChildren: () => import('./pages/browser/browser.module').then(m => m.BrowserModule)
+  },
+  {
+
+    path: 'setting',
+    loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingModule)
   }
 ];
 

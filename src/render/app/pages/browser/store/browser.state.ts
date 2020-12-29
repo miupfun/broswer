@@ -3,14 +3,17 @@ import {BrowserModel} from "./browser.model";
 import {
   BrowserActionsCloseTab,
   BrowserActionsCreateTab,
+  BrowserActionsDropTab,
   BrowserActionsSelectTab,
   BrowserActionsUpdateTab
 } from "./browser.actions";
 import {of} from "rxjs";
-import {insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
+import {insertItem, patch, removeItem} from "@ngxs/store/operators";
 import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
 import {Injectable} from "@angular/core";
 import * as UUID from 'uuid'
+import {moveItemInArray} from "@angular/cdk/drag-drop";
+import {RepairType} from "@ngxs/store/operators/utils";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -27,18 +30,22 @@ export class BrowserState {
   selectTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsSelectTab) {
     return of(
       ctx.patchState({
-        currentTabIndex: payload.index
+        currentTabId: payload.tabId
       })
     )
   }
 
   @Action(BrowserActionsCreateTab)
   createTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsCreateTab) {
-    const old = ctx.getState()
+    let insertIndex = 0
+    if (ctx.getState().currentTabId) {
+      insertIndex = 1 + ctx.getState().tabs.findIndex(t => t.id === ctx.getState().currentTabId)
+    }
     const newTab = {
       id: UUID.v4(),
       title: '',
-      url: payload.url || 'https://www.baidu.com',
+      // url: payload.url || `${environment.rendererUrl}/#/setting`,
+      url: payload.url || `https://www.baidu.com`,
       theme: '',
       icon: '',
       history: [],
@@ -47,7 +54,8 @@ export class BrowserState {
     return of(ctx.setState(
       patch(
         {
-          tabs: insertItem<BrowserTabEntity>(newTab, old.currentTabIndex + 1),
+          tabs: insertItem<BrowserTabEntity>(newTab, insertIndex),
+          currentTabId: newTab.id
         }
       )
     ))
@@ -55,25 +63,22 @@ export class BrowserState {
 
   @Action(BrowserActionsCloseTab)
   closeTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsCloseTab) {
-    const tabsLength = ctx.getState().tabs.length
-    const currentTabIndex = ctx.getState().currentTabIndex
-    let nextTab = -1;
-
-    if (tabsLength > 1) {
-      nextTab = payload.index > 0 ? payload.index - 1 : 0
-    } else {
-      nextTab = -1
+    const index = ctx.getState().tabs.findIndex(t => t.id === payload.tabId)
+    if (index === -1) {
+      return of(ctx.getState())
     }
-
-    return of(
-      ctx.setState(
-        patch(
-          {
-            currentTabIndex: nextTab,
-            tabs: removeItem(payload.index)
-          }
-        )
+    ctx.setState(
+      patch(
+        {
+          tabs: removeItem(index)
+        }
       )
+    )
+    const currentTab = ctx.getState().tabs[index]
+    return of(
+      ctx.patchState({
+        currentTabId: currentTab ? currentTab.id : ''
+      })
     )
   }
 
@@ -82,7 +87,27 @@ export class BrowserState {
     return of(
       ctx.setState(
         patch({
-          tabs: updateItem(payload.index, patch(payload.tabInfo))
+          tabs: (existing: Readonly<RepairType<BrowserTabEntity>[]>): RepairType<BrowserTabEntity[]> => {
+            const clone = existing.slice();
+            const old = clone[payload.index]
+            patch(payload.tabInfo)(old)
+            return clone;
+          }
+        })
+      )
+    );
+  }
+
+  @Action(BrowserActionsDropTab)
+  dropTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsDropTab) {
+    return of(
+      ctx.setState(
+        patch({
+          tabs: (existing: Readonly<RepairType<BrowserTabEntity>[]>): RepairType<BrowserTabEntity[]> => {
+            const clone = existing.slice();
+            moveItemInArray(clone, payload.previousIndex, payload.currentIndex)
+            return clone;
+          }
         })
       )
     );

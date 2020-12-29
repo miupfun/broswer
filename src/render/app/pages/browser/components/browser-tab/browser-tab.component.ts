@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
 import {BrowserModel} from "../../store/browser.model";
-import {BrowserActionsCloseTab, BrowserActionsSelectTab} from "../../store/browser.actions";
+import {BrowserActionsCloseTab, BrowserActionsDropTab, BrowserActionsSelectTab} from "../../store/browser.actions";
 import {Observable} from "rxjs";
 import {BROWSER_STATE} from "../../store/browser.state";
+import {CdkDragDrop} from "@angular/cdk/drag-drop";
+import {BrowserTabEntity} from "../../../../entitys/browser-tab.entity";
 
 @Component({
   selector: 'mp-browser-tab',
@@ -22,12 +24,15 @@ export class BrowserTabComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectTab(index: number) {
-    this.store.dispatch(new BrowserActionsSelectTab(index))
+  selectTab(tab: BrowserTabEntity) {
+    this.store.dispatch(new BrowserActionsSelectTab(tab.id))
   }
 
-  closeTab(index: number) {
-    this.store.dispatch(new BrowserActionsCloseTab(index))
+  closeTab(tab: BrowserTabEntity) {
+    this.store.dispatch(new BrowserActionsCloseTab(tab.id))
   }
 
+  drop(event: CdkDragDrop<any>) {
+    this.store.dispatch(new BrowserActionsDropTab(event.previousIndex, event.currentIndex))
+  }
 }

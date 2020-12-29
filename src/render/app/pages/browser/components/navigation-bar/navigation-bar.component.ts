@@ -22,7 +22,6 @@ export class NavigationBarComponent implements OnInit {
   addTab() {
     const length = this.store.selectSnapshot(BROWSER_STATE).tabs.length
     this.store.dispatch(new BrowserActionsCreateTab()).subscribe(() => {
-      this.store.dispatch(new BrowserActionsSelectTab(length)).subscribe()
     })
   }
 

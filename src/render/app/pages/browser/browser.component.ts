@@ -12,10 +12,12 @@ import {BrowserActionsCreateTab, BrowserActionsSelectTab} from "./store/browser.
 })
 export class BrowserComponent implements OnInit {
 
+
   @Select(BROWSER_STATE)
   $browserState: Observable<BrowserModel> | undefined;
 
   constructor(private store: Store) {
+    // this.store.select((state: any) => state.browser.)
   }
 
   ngOnInit(): void {

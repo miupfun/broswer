@@ -15,7 +15,7 @@ app.on('ready', () => {
       webviewTag: true
     }
   });
-  w.loadURL(process.env.$RENDER as string).then(() => {
+  w.loadURL(`${process.env.$RENDER}#/browser`).then(() => {
     w.show();
   });
 });

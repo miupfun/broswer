@@ -1,9 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
-import {BrowserActionsCreateTab, BrowserActionsSelectTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
+import {
+  BrowserActionsCreateTab,
+  BrowserActionsDropTab,
+  BrowserActionsSelectTab,
+  BrowserActionsUpdateTab
+} from "../../store/browser.actions";
 import {BROWSER_STATE} from "../../store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "../../store/browser.model";
+import {CdkDragDrop} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'mp-browser-content',
@@ -40,8 +46,9 @@ export class BrowserContentComponent implements OnInit {
   }
 
   createTab(index: number, winOption: { type: string; url: string }) {
-    this.store.dispatch(new BrowserActionsCreateTab(index, winOption.url)).subscribe(() => {
-      this.store.dispatch(new BrowserActionsSelectTab(index + 1))
+    this.store.dispatch(new BrowserActionsCreateTab(winOption.url)).subscribe(() => {
     })
   }
+
+
 }

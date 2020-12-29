@@ -10,6 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {fromEvent, Observable} from "rxjs";
+import {environment} from "../../../../../environments/environment";
 
 @Component({
   selector: 'mp-broswer-webview',
@@ -23,6 +24,8 @@ export class BroswerWebviewComponent implements OnInit, AfterViewInit, OnChanges
 
   @Input()
   src: string | undefined;
+
+  nodeApiEnable: boolean = false
 
   @Output()
   themeChange: EventEmitter<string> = new EventEmitter<string>()
@@ -61,30 +64,26 @@ export class BroswerWebviewComponent implements OnInit, AfterViewInit, OnChanges
     this.webview.nativeElement.addEventListener('did-navigate-in-page', () => {
     })
     this.webview.nativeElement.addEventListener('did-change-theme-color', (e: any) => {
-      // this.themeChange.emit(e.themeColor)
+      this.themeChange.emit(e.themeColor)
     })
     this.webview.nativeElement.addEventListener('page-title-updated', (e: any) => {
       this.titleChange.emit(e.title)
     })
     this.webview.nativeElement.addEventListener('page-favicon-updated', (e: any) => {
-      // this.iconChange.emit(e.favicons || [])
+      this.iconChange.emit(e.favicons || [])
     })
     this.webview.nativeElement.addEventListener('dom-ready', (e: any) => {
     })
-    if (this.src) this.changeUrl(this.src)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.src && changes.src.isFirstChange()) {
+    if (changes.src && changes.src.currentValue) {
+      this.nodeApiEnable = changes.src.currentValue.startsWith(environment.rendererUrl)
     }
   }
 
-  changeUrl(src: string) {
-    console.log('change url')
-    this.renderer2.setAttribute(this.webview.nativeElement, 'src', src)
-  }
-
   ngOnDestroy(): void {
-    console.log('destroy webview')
+
+
   }
 }

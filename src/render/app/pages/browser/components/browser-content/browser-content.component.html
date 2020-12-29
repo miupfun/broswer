@@ -1,6 +1,10 @@
-<div class="browser-content" *ngIf="$store|async  as browserState">
-  <div class="browser-inner-box" *ngFor="let tab of browserState.tabs;let i = index"
-       [class.show]="i===browserState.currentTabIndex">
+<div *ngIf="$store|async  as browserState"
+     class="browser-content">
+  <div
+    class="browser-inner-box"
+    [class.show]="tab.id===browserState.currentTabId"
+    *ngFor="let tab of browserState.tabs;let i = index"
+  >
     <mp-broswer-webview [src]="tab.url"
                         (themeChange)="themeChange(i,$event)"
                         (titleChange)="titleChange(i,$event)"

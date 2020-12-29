@@ -1,7 +1,16 @@
-<div class="browser-tab-container full" fxLayout="flex" *ngIf="$browserState|async as browserModel">
+<div
+  class="browser-tab-container full"
+  fxLayout="flex"
+  *ngIf="$browserState|async as browserModel"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  cdkDropListLockAxis="x"
+  (cdkDropListDropped)="drop($event)"
+>
   <div
     class="full-h browser-tab-item-container"
     mpWinDrag="false"
+    cdkDrag
     fxFlex="100%"
     fxLayout="flex"
     *ngFor="let tab of browserModel?.tabs;let i =index"
@@ -9,9 +18,9 @@
     <mp-browser-tab-item
       class="full"
       [tab]="tab"
-      [active]="i===browserModel?.currentTabIndex"
-      (select)="selectTab(i)"
-      (close)="closeTab(i)">
+      [active]="tab.id===browserModel?.currentTabId"
+      (select)="selectTab(tab)"
+      (close)="closeTab(tab)">
     </mp-browser-tab-item>
   </div>
 </div>
