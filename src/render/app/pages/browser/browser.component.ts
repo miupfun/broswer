@@ -17,9 +17,9 @@ export class BrowserComponent implements OnInit {
   $browserState: Observable<BrowserModel> | undefined;
 
   constructor(private store: Store) {
-    // this.store.select((state: any) => state.browser.)
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new BrowserActionsCreateTab())
   }
 }

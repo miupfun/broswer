@@ -2,14 +2,14 @@
      class="browser-content">
   <div
     class="browser-inner-box"
-    [class.show]="tab.id===browserState.currentTabId"
-    *ngFor="let tab of browserState.tabs;let i = index"
+    *ngFor="let browser of browserState.browserViews;let i = index"
+    [class.show]="browser.id===browserState.currentTabId"
   >
-    <mp-broswer-webview [src]="tab.url"
-                        (themeChange)="themeChange(i,$event)"
-                        (titleChange)="titleChange(i,$event)"
-                        (iconChange)="iconChange(i,$event)"
-                        (newWindow)="createTab(i,$event)"
+    <mp-broswer-webview [src]="browser.url"
+                        (themeChange)="themeChange(browser.id,$event)"
+                        (titleChange)="titleChange(browser.id,$event)"
+                        (iconChange)="iconChange(browser.id,$event)"
+                        (newWindow)="createTab(browser.id,$event)"
     >
     </mp-broswer-webview>
   </div>

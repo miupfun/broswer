@@ -1,5 +1,8 @@
-<div class="mp-browser-header full-w">
-  <mp-navigation-bar mpWinNoSelect>
+<div class="mp-browser-header full-w" *ngIf="$browserState |async as browserModel">
+  <mp-navigation-bar mpWinNoSelect
+                     [backgroundColor]="browserModel.navigationBarConfig?.backgroundColor"
+                     [foregroundColor]="browserModel.navigationBarConfig?.foregroundColor"
+  >
     <mp-browser-tab class="full"></mp-browser-tab>
   </mp-navigation-bar>
 </div>

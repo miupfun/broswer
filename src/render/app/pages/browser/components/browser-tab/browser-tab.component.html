@@ -3,15 +3,16 @@
   fxLayout="flex"
   *ngIf="$browserState|async as browserModel"
   cdkDropList
+  [cdkDropListDisabled]="browserModel.tabs.length===1"
   cdkDropListOrientation="horizontal"
   cdkDropListLockAxis="x"
   (cdkDropListDropped)="drop($event)"
 >
   <div
-    class="full-h browser-tab-item-container"
     mpWinDrag="false"
     cdkDrag
-    fxFlex="100%"
+    class="full-h browser-tab-item-container"
+    fxFlex="1 1"
     fxLayout="flex"
     *ngFor="let tab of browserModel?.tabs;let i =index"
     fxLayoutAlign="start center">

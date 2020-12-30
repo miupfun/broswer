@@ -1,15 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
-import {
-  BrowserActionsCreateTab,
-  BrowserActionsDropTab,
-  BrowserActionsSelectTab,
-  BrowserActionsUpdateTab
-} from "../../store/browser.actions";
+import {BrowserActionsCreateTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
 import {BROWSER_STATE} from "../../store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "../../store/browser.model";
-import {CdkDragDrop} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'mp-browser-content',
@@ -27,28 +21,26 @@ export class BrowserContentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  themeChange(index: number, theme: string) {
-    this.store.dispatch(new BrowserActionsUpdateTab(index, {
+  themeChange(id: string, theme: string) {
+    this.store.dispatch(new BrowserActionsUpdateTab(id, {
       theme: theme
     }))
   }
 
-  titleChange(index: number, title: string) {
-    this.store.dispatch(new BrowserActionsUpdateTab(index, {
+  titleChange(id: string, title: string) {
+    this.store.dispatch(new BrowserActionsUpdateTab(id, {
       title: title
     }))
   }
 
-  iconChange(index: number, icons: string[]) {
-    this.store.dispatch(new BrowserActionsUpdateTab(index, {
+  iconChange(id: string, icons: string[]) {
+    this.store.dispatch(new BrowserActionsUpdateTab(id, {
       icon: icons[icons.length - 1] || ''
     }))
   }
 
-  createTab(index: number, winOption: { type: string; url: string }) {
-    this.store.dispatch(new BrowserActionsCreateTab(winOption.url)).subscribe(() => {
+  createTab(id: string, winOption: { type: string; url: string }) {
+    this.store.dispatch(new BrowserActionsCreateTab(winOption.url,id)).subscribe(() => {
     })
   }
-
-
 }

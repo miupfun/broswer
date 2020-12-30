@@ -9,7 +9,7 @@ import {Store} from "@ngxs/store";
 })
 export class BrowserTabItemComponent implements OnInit {
   @Input()
-  tab: BrowserTabEntity | undefined;
+  tab: BrowserTabEntity | null = null;
 
   @Input()
   active: boolean = false

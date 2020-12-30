@@ -1,7 +1,4 @@
 .mp-window-ctrl {
-  position: fixed;
-  right: 0;
-  top: 0;
   background-color: transparent;
 
   .mp-ctrl-btn {
@@ -18,6 +15,12 @@
 
     .iconfont {
       font-size: 14px;
+    }
+  }
+
+  .close-warn {
+    &:hover {
+      background-color: #ff2200
     }
   }
 }

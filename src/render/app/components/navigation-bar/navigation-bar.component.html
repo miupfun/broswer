@@ -1,0 +1,13 @@
+<div class="mp-navigation-bar-container full-w"
+     mpWinDrag
+     fxLayout="row"
+     [style.backgroundColor]="backgroundColor"
+     [style.color]="foregroundColor"
+>
+  <div fxFlex="1 1"
+       fxLayout="row"
+       class="mp-navigation-bar-tab-container">
+    <ng-content></ng-content>
+  </div>
+  <mp-window-ctrl fxFlexAlign="end" [fxShow]="platForm==='win32'"></mp-window-ctrl>
+</div>

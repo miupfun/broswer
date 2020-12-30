@@ -3,14 +3,14 @@ import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
 export class BrowserActionsCreateTab {
   static readonly type = '[browser] BrowserActionsCreateTab';
 
-  constructor(public url?: string) {
+  constructor(public url?: string, public createTabId?: string) {
   }
 }
 
 export class BrowserActionsUpdateTab {
   static readonly type = '[browser] BrowserActionsUpdateTab'
 
-  constructor(public index: number, public tabInfo: Partial<BrowserTabEntity>) {
+  constructor(public id: string, public tabInfo: Partial<BrowserTabEntity>) {
   }
 }
 
@@ -32,6 +32,13 @@ export class BrowserActionsDropTab {
   static readonly type = '[browser] BrowserActionsDropTab'
 
   constructor(public previousIndex: number, public currentIndex: number) {
+  }
+}
+
+export class BrowserActionsSetTabTheme {
+  static readonly type = '[browser] BrowserActionsSetTabTheme'
+
+  constructor(public bgColor?: string) {
   }
 }
 

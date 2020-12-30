@@ -23,9 +23,7 @@ export class WindowDragDirective implements OnInit {
         this.renderer2.setStyle(this.elementRef.nativeElement, '-webkit-app-region', 'no-drag')
         break
     }
-
   }
-
 }
 
 

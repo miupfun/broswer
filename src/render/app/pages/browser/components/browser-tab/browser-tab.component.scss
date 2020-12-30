@@ -1,16 +1,15 @@
 .browser-tab-container {
   overflow-x: hidden;
-  width: 100%;
-  
-  
 
   .browser-tab-item-container {
+    min-width: 40px;
+    overflow: hidden;
+
     &:not(:last-child) {
       border-right: 1px solid darkgrey;
     }
   }
 }
-
 
 .cdk-drag-preview {
   box-sizing: border-box;

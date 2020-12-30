@@ -28,7 +28,9 @@ export class WindowControllerComponent implements OnInit {
     })
 
     remote.getCurrentWindow().on('enter-full-screen', () => {
-
+      this.zone.run(() => {
+        this.isMaxSize = false
+      })
     })
     remote.getCurrentWindow().on('leave-full-screen', () => {
 

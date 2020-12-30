@@ -1,11 +1,16 @@
 import {app, BrowserWindow} from 'electron';
-import {is, openSystemPreferences} from 'electron-util';
+import {is} from 'electron-util';
 
 app.on('ready', () => {
   const w = new BrowserWindow({
     show: false,
     frame: !is.windows,
     titleBarStyle: "hidden",
+    width: 1280,
+    height: 720,
+    minWidth: 1280,
+    minHeight: 720,
+    center: true,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
