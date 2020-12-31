@@ -1,0 +1,222 @@
+@import "function";
+@import "material";
+
+@mixin theme-var($theme) {
+  $primary: map-get($theme, primary);
+  $primary-contrast: map-get($primary, contrast);
+
+  $accent: map-get($theme, accent);
+  $accent-contrast: map-get($accent, contrast);
+
+  $warn: map-get($theme, warn);
+  $warn-contrast: map-get($warn, contrast);
+
+  $foreground: map-get($theme, foreground);
+
+  $background: map-get($theme, background);
+
+  //primary
+  --primary-50: #{map-get($primary, 50)};
+  --primary-100: #{map-get($primary, 100)};
+  --primary-200: #{map-get($primary, 200)};
+  --primary-300: #{map-get($primary, 300)};
+  --primary-400: #{map-get($primary, 400)};
+  --primary-500: #{map-get($primary, 500)};
+  --primary-600: #{map-get($primary, 600)};
+  --primary-700: #{map-get($primary, 700)};
+  --primary-800: #{map-get($primary, 800)};
+  --primary-900: #{map-get($primary, 900)};
+  --primary-A100: #{map-get($primary, A100)};
+  --primary-A200: #{map-get($primary, A200)};
+  --primary-A400: #{map-get($primary, A400)};
+  --primary-A700: #{map-get($primary, A700)};
+  --primary-default: #{map-get($primary, default)};
+  --primary-default-rgb: #{hex2rgb(map-get($primary, default))};
+  --primary-lighter: #{map-get($primary, lighter)};
+  --primary-darker: #{map-get($primary, darker)};
+  --primary-text: #{map-get($primary, text)};
+
+  // primary/contrast
+  --primary-contrast-50: #{map-get($primary-contrast, 50)};
+  --primary-contrast-100: #{map-get($primary-contrast, 100)};
+  --primary-contrast-200: #{map-get($primary-contrast, 200)};
+  --primary-contrast-300: #{map-get($primary-contrast, 300)};
+  --primary-contrast-400: #{map-get($primary-contrast, 400)};
+  --primary-contrast-500: #{map-get($primary-contrast, 500)};
+  --primary-contrast-600: #{map-get($primary-contrast, 600)};
+  --primary-contrast-700: #{map-get($primary-contrast, 700)};
+  --primary-contrast-800: #{map-get($primary-contrast, 800)};
+  --primary-contrast-900: #{map-get($primary-contrast, 900)};
+  --primary-contrast-A100: #{map-get($primary-contrast, A100)};
+  --primary-contrast-A200: #{map-get($primary-contrast, A200)};
+  --primary-contrast-A400: #{map-get($primary-contrast, A400)};
+  --primary-contrast-A700: #{map-get($primary-contrast, A700)};
+  // primary
+  --primary-default-contrast: #{map-get($primary, default-contrast)};
+  --primary-lighter-contrast: #{map-get($primary, lighter-contrast)};
+  --primary-darker-contrast: #{map-get($primary, darker-contrast)};
+  --primary-50-contrast: #{map-get($primary, '50-contrast')};
+  --primary-100-contrast: #{map-get($primary, '100-contrast')};
+  --primary-200-contrast: #{map-get($primary, '200-contrast')};
+  --primary-300-contrast: #{map-get($primary, '300-contrast')};
+  --primary-400-contrast: #{map-get($primary, '400-contrast')};
+  --primary-500-contrast: #{map-get($primary, '500-contrast')};
+  --primary-600-contrast: #{map-get($primary, '600-contrast')};
+  --primary-700-contrast: #{map-get($primary, '700-contrast')};
+  --primary-800-contrast: #{map-get($primary, '800-contrast')};
+  --primary-900-contrast: #{map-get($primary, '900-contrast')};
+  --primary-A100-contrast: #{map-get($primary, A100-contrast)};
+  --primary-A200-contrast: #{map-get($primary, A200-contrast)};
+  --primary-A400-contrast: #{map-get($primary, A400-contrast)};
+  --primary-A700-contrast: #{map-get($primary, A700-contrast)};
+  --primary-contrast-contrast: #{map-get($primary, contrast-contrast)};
+
+  //accent
+  --accent-50: #{map-get($accent, 50)};
+  --accent-100: #{map-get($accent, 100)};
+  --accent-200: #{map-get($accent, 200)};
+  --accent-300: #{map-get($accent, 300)};
+  --accent-400: #{map-get($accent, 400)};
+  --accent-500: #{map-get($accent, 500)};
+  --accent-600: #{map-get($accent, 600)};
+  --accent-700: #{map-get($accent, 700)};
+  --accent-800: #{map-get($accent, 800)};
+  --accent-900: #{map-get($accent, 900)};
+  --accent-A100: #{map-get($accent, A100)};
+  --accent-A200: #{map-get($accent, A200)};
+  --accent-A400: #{map-get($accent, A400)};
+  --accent-A700: #{map-get($accent, A700)};
+  --accent-default: #{map-get($accent, default)};
+  --accent-default-rgb: #{hex2rgb(map-get($accent, default))};
+  --accent-lighter: #{map-get($accent, lighter)};
+  --accent-darker: #{map-get($accent, darker)};
+  --accent-text: #{map-get($accent, text)};
+
+  // accent/contrast
+  --accent-contrast-50: #{map-get($accent-contrast, 50)};
+  --accent-contrast-100: #{map-get($accent-contrast, 100)};
+  --accent-contrast-200: #{map-get($accent-contrast, 200)};
+  --accent-contrast-300: #{map-get($accent-contrast, 300)};
+  --accent-contrast-400: #{map-get($accent-contrast, 400)};
+  --accent-contrast-500: #{map-get($accent-contrast, 500)};
+  --accent-contrast-600: #{map-get($accent-contrast, 600)};
+  --accent-contrast-700: #{map-get($accent-contrast, 700)};
+  --accent-contrast-800: #{map-get($accent-contrast, 800)};
+  --accent-contrast-900: #{map-get($accent-contrast, 900)};
+  --accent-contrast-A100: #{map-get($accent-contrast, A100)};
+  --accent-contrast-A200: #{map-get($accent-contrast, A200)};
+  --accent-contrast-A400: #{map-get($accent-contrast, A400)};
+  --accent-contrast-A700: #{map-get($accent-contrast, A700)};
+  // accent
+  --accent-default-contrast: #{map-get($accent, default-contrast)};
+  --accent-lighter-contrast: #{map-get($accent, lighter-contrast)};
+  --accent-darker-contrast: #{map-get($accent, darker-contrast)};
+  --accent-50-contrast: #{map-get($accent, '50-contrast')};
+  --accent-100-contrast: #{map-get($accent, '100-contrast')};
+  --accent-200-contrast: #{map-get($accent, '200-contrast')};
+  --accent-300-contrast: #{map-get($accent, '300-contrast')};
+  --accent-400-contrast: #{map-get($accent, '400-contrast')};
+  --accent-500-contrast: #{map-get($accent, '500-contrast')};
+  --accent-600-contrast: #{map-get($accent, '600-contrast')};
+  --accent-700-contrast: #{map-get($accent, '700-contrast')};
+  --accent-800-contrast: #{map-get($accent, '800-contrast')};
+  --accent-900-contrast: #{map-get($accent, '900-contrast')};
+  --accent-A100-contrast: #{map-get($accent, A100-contrast)};
+  --accent-A200-contrast: #{map-get($accent, A200-contrast)};
+  --accent-A400-contrast: #{map-get($accent, A400-contrast)};
+  --accent-A700-contrast: #{map-get($accent, A700-contrast)};
+  --accent-contrast-contrast: #{map-get($accent, contrast-contrast)};
+
+
+  //warn
+  --warn-50: #{map-get($warn, 50)};
+  --warn-100: #{map-get($warn, 100)};
+  --warn-200: #{map-get($warn, 200)};
+  --warn-300: #{map-get($warn, 300)};
+  --warn-400: #{map-get($warn, 400)};
+  --warn-500: #{map-get($warn, 500)};
+  --warn-600: #{map-get($warn, 600)};
+  --warn-700: #{map-get($warn, 700)};
+  --warn-800: #{map-get($warn, 800)};
+  --warn-900: #{map-get($warn, 900)};
+  --warn-A100: #{map-get($warn, A100)};
+  --warn-A200: #{map-get($warn, A200)};
+  --warn-A400: #{map-get($warn, A400)};
+  --warn-A700: #{map-get($warn, A700)};
+  --warn-default: #{map-get($warn, default)};
+  --warn-default-rgb: #{hex2rgb(map-get($warn, default))};
+  --warn-lighter: #{map-get($warn, lighter)};
+  --warn-darker: #{map-get($warn, darker)};
+  --warn-text: #{map-get($warn, text)};
+
+  // warn/contrast
+  --warn-contrast-50: #{map-get($warn-contrast, 50)};
+  --warn-contrast-100: #{map-get($warn-contrast, 100)};
+  --warn-contrast-200: #{map-get($warn-contrast, 200)};
+  --warn-contrast-300: #{map-get($warn-contrast, 300)};
+  --warn-contrast-400: #{map-get($warn-contrast, 400)};
+  --warn-contrast-500: #{map-get($warn-contrast, 500)};
+  --warn-contrast-600: #{map-get($warn-contrast, 600)};
+  --warn-contrast-700: #{map-get($warn-contrast, 700)};
+  --warn-contrast-800: #{map-get($warn-contrast, 800)};
+  --warn-contrast-900: #{map-get($warn-contrast, 900)};
+  --warn-contrast-A100: #{map-get($warn-contrast, A100)};
+  --warn-contrast-A200: #{map-get($warn-contrast, A200)};
+  --warn-contrast-A400: #{map-get($warn-contrast, A400)};
+  --warn-contrast-A700: #{map-get($warn-contrast, A700)};
+  // warn
+  --warn-default-contrast: #{map-get($warn, default-contrast)};
+  --warn-lighter-contrast: #{map-get($warn, lighter-contrast)};
+  --warn-darker-contrast: #{map-get($warn, darker-contrast)};
+  --warn-50-contrast: #{map-get($warn, '50-contrast')};
+  --warn-100-contrast: #{map-get($warn, '100-contrast')};
+  --warn-200-contrast: #{map-get($warn, '200-contrast')};
+  --warn-300-contrast: #{map-get($warn, '300-contrast')};
+  --warn-400-contrast: #{map-get($warn, '400-contrast')};
+  --warn-500-contrast: #{map-get($warn, '500-contrast')};
+  --warn-600-contrast: #{map-get($warn, '600-contrast')};
+  --warn-700-contrast: #{map-get($warn, '700-contrast')};
+  --warn-800-contrast: #{map-get($warn, '800-contrast')};
+  --warn-900-contrast: #{map-get($warn, '900-contrast')};
+  --warn-A100-contrast: #{map-get($warn, A100-contrast)};
+  --warn-A200-contrast: #{map-get($warn, A200-contrast)};
+  --warn-A400-contrast: #{map-get($warn, A400-contrast)};
+  --warn-A700-contrast: #{map-get($warn, A700-contrast)};
+  --warn-contrast-contrast: #{map-get($warn, contrast-contrast)};
+
+  //foreground
+  --foreground-base: #{map-get($foreground, base)};
+  --foreground-base-rgb: #{hex2rgb(map-get($foreground, base))};
+  --foreground-divider: #{map-get($foreground, divider)};
+  --foreground-dividers: #{map-get($foreground, dividers)};
+  --foreground-disabled: #{map-get($foreground, disabled)};
+  --foreground-disabled-button: #{map-get($foreground, disabled-button)};
+  --foreground-disabled-text: #{map-get($foreground,disabled-text)};
+  --foreground-elevation: #{map-get($foreground, elevation)};
+  --foreground-hint-text: #{map-get($foreground, hint-text)};
+  --foreground-secondary-text: #{map-get($foreground, secondary-text)};
+  --foreground-icon: #{map-get($foreground, icon)};
+  --foreground-icons: #{map-get($foreground, icons)};
+  --foreground-text: #{map-get($foreground, text)};
+  --foreground-slider-min: #{map-get($foreground, slider-min)};
+  --foreground-slider-off: #{map-get($foreground, slider-off)};
+  --foreground-slider-off-active: #{map-get($foreground, slider-off-active)};
+
+  //background
+  --background-status-bar: #{map-get($background,status-bar)};
+  --background-app-bar: #{map-get($background,app-bar)};
+  --background-background: #{map-get($background,background)};
+  --background-background-rgb: #{hex2rgb(map-get($background,background))};
+  --background-hover: #{map-get($background,hover)};
+  --background-card: #{map-get($background,card)};
+  --background-dialog: #{map-get($background,dialog)};
+  --background-disabled-button: #{map-get($background,disabled)};
+  --background-raised-button: #{map-get($background,raised-button)};
+  --background-focused-button: #{map-get($background,focused-button)};
+  --background-selected-button: #{map-get($background,selected-button)};
+  --background-selected-disabled-button: #{map-get($background,selected-disabled-button)};
+  --background-disabled-button-toggle: #{map-get($background,disabled-button-toggle)};
+  --background-unselected-chip: #{map-get($background,unselected-chip)};
+  --background-disabled-list-option: #{map-get($background,disabled-list-option)};
+  --background-tooltip: #{map-get($background,tooltip)};
+}

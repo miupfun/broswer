@@ -1,0 +1,9 @@
+@import "./miup-layout/index";
+@import "./miup-common/index";
+@import "./miup-divider/index";
+
+@mixin miup-component() {
+  @include miup-component-layout();
+  @include miup-component-common();
+  @include miup-component-divider();
+}

@@ -1,0 +1,57 @@
+@mixin miup-component-layout() {
+  .flex {
+    display: flex;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .flex-column {
+    flex-direction: column;
+  }
+
+  .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .flex-column-reverse {
+    flex-direction: column-reverse;
+  }
+
+  .justify-start {
+    justify-content: flex-start;
+  }
+
+  .justify-end {
+    justify-content: flex-end;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  .justify-around {
+    align-content: space-around;
+  }
+
+  .justify-between {
+    align-content: space-between;
+  }
+
+  .align-start {
+    align-items: flex-start;
+  }
+
+  .align-end {
+    align-items: flex-end;
+  }
+
+  .align-center {
+    align-items: center;
+  }
+
+  .align-revert {
+    align-items: revert;
+  }
+}

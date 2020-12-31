@@ -1,12 +1,26 @@
-<div class="mp-browser-header full-w" *ngIf="$browserState |async as browserModel">
-  <mp-navigation-bar mpWinNoSelect
-                     [backgroundColor]="browserModel.navigationBarConfig?.backgroundColor"
-                     [foregroundColor]="browserModel.navigationBarConfig?.foregroundColor"
+<div class="mp-browser-header full-width" *ngIf="$browserState |async as browserModel">
+  <mp-navigation-bar
+    mpWinNoSelect
+    [style]="{'--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,'--navigationbar-color':browserModel.navigationBarConfig.foregroundColor}"
   >
-    <mp-browser-tab class="full"></mp-browser-tab>
+    <div class="full-page" fxLayout="row">
+      <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
+        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple>
+          <i class="iconfont icon-menu"></i>
+        </div>
+      </div>
+      <div class="" fxFlex="1 1" style="overflow: hidden">
+        <mp-browser-tab></mp-browser-tab>
+      </div>
+      <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
+        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
+          <i class="iconfont icon-add"></i>
+        </div>
+      </div>
+    </div>
   </mp-navigation-bar>
 </div>
 
-<div class="mp-browser-body full-w">
+<div class="mp-browser-body full-width">
   <mp-browser-content></mp-browser-content>
 </div>

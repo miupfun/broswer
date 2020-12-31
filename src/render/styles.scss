@@ -1,2 +1,7 @@
 @import "./style/iconfont/iconfont.css";
-@import './style/reset/_index.scss';
+@import './style/theme/_index.scss';
+
+@include miup-theme();
+:root {
+  --tab-active-bg:rgba(var(--foreground-base-rgb), 0.6)
+}

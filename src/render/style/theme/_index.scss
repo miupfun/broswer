@@ -1,0 +1,11 @@
+@import "const/index";
+@import "style/index";
+@import "other/index";
+@import "./component/index";
+
+@mixin miup-theme() {
+  @include miup-other();
+  @include mat-core();
+  @include miup-style();
+  @include miup-component()
+}

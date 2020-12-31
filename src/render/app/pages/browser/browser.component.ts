@@ -20,6 +20,10 @@ export class BrowserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.createNewTab()
+  }
+
+  createNewTab() {
     this.store.dispatch(new BrowserActionsCreateTab())
   }
 }

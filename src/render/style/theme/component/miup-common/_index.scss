@@ -1,0 +1,5 @@
+@import "box";
+
+@mixin miup-component-common() {
+  @include miup-common-box()
+}

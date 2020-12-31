@@ -1,0 +1,17 @@
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.color-primary {
+  color: var(--primary-default);
+}
+
+.color-accent {
+  color: var(--accent-default);
+}
+
+.color-warn {
+  color: var(--warn-default);
+}

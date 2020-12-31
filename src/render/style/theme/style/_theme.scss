@@ -1,0 +1,19 @@
+@import "../const/index";
+
+@mixin miup-style-theme() {
+  :root {
+    @include theme-var($theme);
+  }
+  @include angular-material-theme($theme);
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      @include theme-var($theme-dark);
+    }
+    @include angular-material-theme($theme-dark);
+  }
+  body {
+    background-color: var(--background-background);
+    color: var(--foreground-base);
+  }
+}

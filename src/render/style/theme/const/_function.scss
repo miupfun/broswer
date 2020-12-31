@@ -1,0 +1,6 @@
+@function hex2rgb($hex) {
+  $_red: red($hex);
+  $_green: green($hex);
+  $_blue: blue($hex);
+  @return '#{$_red},#{$_green},#{$_blue}'
+}

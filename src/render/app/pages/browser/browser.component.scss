@@ -1,5 +1,16 @@
 .mp-browser-header {
   height: 36px;
+  .navigation-bar-menus{
+    div.navigation-bar-menu-item{
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  }
 }
 
 .mp-browser-body {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
-import {BrowserActionsCreateTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
+import {BrowserActionsCreateTab, BrowserActionsSetTabTheme, BrowserActionsUpdateTab} from "../../store/browser.actions";
 import {BROWSER_STATE} from "../../store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "../../store/browser.model";
@@ -40,7 +40,7 @@ export class BrowserContentComponent implements OnInit {
   }
 
   createTab(id: string, winOption: { type: string; url: string }) {
-    this.store.dispatch(new BrowserActionsCreateTab(winOption.url,id)).subscribe(() => {
+    this.store.dispatch(new BrowserActionsCreateTab(winOption.url, id)).subscribe(() => {
     })
   }
 }

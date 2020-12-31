@@ -7,7 +7,7 @@ import {
   BrowserActionsSelectTab, BrowserActionsSetTabTheme,
   BrowserActionsUpdateTab
 } from "./browser.actions";
-import {of} from "rxjs";
+import {combineLatest, of} from "rxjs";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
 import {Injectable} from "@angular/core";
@@ -16,6 +16,7 @@ import {moveItemInArray} from "@angular/cdk/drag-drop";
 import {RepairType} from "@ngxs/store/operators/utils";
 import {BrowserViewEntity} from "../../../entitys/browser-view.entity";
 import {ColorUtil} from "../../../utils/color.util";
+import {combineAll, flatMap} from "rxjs/internal/operators";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -30,19 +31,20 @@ export class BrowserState {
 
   @Action(BrowserActionsSelectTab)
   selectTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsSelectTab) {
-
+    const tb = ctx.getState().tabs.find(t => t.id === payload.tabId)
     return of(ctx.setState(
       patch(
         {
-          currentTabId: payload.tabId || null,
+          currentTabId: tb ? tb.id : null,
         }
       )
     )).pipe(
       (data) => {
-        ctx.dispatch(new BrowserActionsSetTabTheme())
+        ctx.dispatch(new BrowserActionsSetTabTheme(tb ? tb.theme : undefined))
         return data
       }
     )
+
   }
 
   @Action(BrowserActionsCreateTab)
@@ -51,13 +53,10 @@ export class BrowserState {
     if (ctx.getState().currentTabId) {
       insertIndex = 1 + ctx.getState().tabs.findIndex(t => t.id === ctx.getState().currentTabId)
     }
-
-
     let lastTabIndex = -1
     for (const tab of ctx.getState().tabs) {
       lastTabIndex = (tab.createIndex > lastTabIndex) ? tab.createIndex : lastTabIndex;
     }
-
     const newTab: BrowserTabEntity = {
       id: UUID.v4(),
       createIndex: lastTabIndex + 1,
@@ -89,15 +88,17 @@ export class BrowserState {
   closeTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsCloseTab) {
     const tabIndex = ctx.getState().tabs.findIndex(t => t.id === payload.tabId)
     const browserViewIndex = ctx.getState().browserViews.findIndex(v => v.id === payload.tabId)
-    return ctx.setState(
-      patch(
-        {
-          currentTabId: ctx.getState().currentTabId === payload.tabId ? null : ctx.getState().currentTabId,
-          tabs: removeItem(tabIndex),
-          browserViews: removeItem(browserViewIndex),
-        }
-      )
-    )
+
+    const patchState: any = {
+      browserViews: removeItem(browserViewIndex),
+      tabs: removeItem(tabIndex)
+    }
+    if (payload.tabId === ctx.getState().currentTabId) {
+      let nextSelectIndex: number = tabIndex - 1 < 0 ? 1 : tabIndex - 1;
+      const nextTab = ctx.getState().tabs[nextSelectIndex]
+      patchState.currentTabId = nextTab?.id
+    }
+    return of(ctx.setState(patch(patchState)))
   }
 
   @Action(BrowserActionsUpdateTab)
@@ -111,9 +112,11 @@ export class BrowserState {
       )
     ).pipe(
       (data) => {
-        // if (Object.keys(payload.tabInfo).includes('theme')) {
-        //   ctx.dispatch(new BrowserActionsSetTabTheme())
-        // }
+        console.log(payload.id, ctx.getState().currentTabId)
+        if (payload.id !== ctx.getState().currentTabId) {
+          return data
+        }
+        ctx.dispatch(new BrowserActionsSetTabTheme(payload.tabInfo.theme))
         return data
       }
     );
@@ -134,7 +137,6 @@ export class BrowserState {
     );
   }
 
-
   @Action(BrowserActionsSetTabTheme)
   setTabTheme(ctx: StateContext<BrowserModel>, payload: BrowserActionsSetTabTheme) {
     const updateState: any = {}
@@ -145,13 +147,11 @@ export class BrowserState {
       const currentTab = ctx.getState().tabs.find(t => t.id === ctx.getState().currentTabId)
       color = currentTab ? currentTab.theme : null
     }
-
     if (color) {
       updateState.navigationBarConfig = patch({
         backgroundColor: color,
         foregroundColor: ColorUtil.getContrastYIQ(color)
       })
-
     } else {
       updateState.navigationBarConfig = patch({
         backgroundColor: null,

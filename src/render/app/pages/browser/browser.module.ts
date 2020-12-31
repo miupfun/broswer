@@ -15,6 +15,9 @@ import {BrowserTabItemComponent} from "./components/browser-tab-item/browser-tab
 import {BrowserContentItemComponent} from "./components/browser-content-item/browser-content-item.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MpNavigationBarModule} from "../../components/navigation-bar/navigation-bar.module";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatRippleModule} from "@angular/material/core";
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import {MpNavigationBarModule} from "../../components/navigation-bar/navigation-
         component: BrowserComponent
       }
     ]),
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRippleModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -1,0 +1,7 @@
+@import "icons";
+@import "reset";
+
+@mixin miup-other() {
+  @include miup-other-reset();
+  @include miup-other-icon();
+}

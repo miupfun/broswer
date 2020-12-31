@@ -11,6 +11,7 @@ app.on('ready', () => {
     minWidth: 1280,
     minHeight: 720,
     center: true,
+    backgroundColor:'#fff',
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,

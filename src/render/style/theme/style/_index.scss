@@ -1,0 +1,8 @@
+@import "theme";
+@import "scrollbar";
+@import "text";
+
+@mixin miup-style() {
+  @include miup-style-theme();
+  @include miup-style-scrollbar()
+}

@@ -1,5 +1,6 @@
 <div
-  class="browser-tab-container full"
+  class="browser-tab-container full-page"
+  [style.backgroundColor]="browserModel.navigationBarConfig.backgroundColor"
   fxLayout="flex"
   *ngIf="$browserState|async as browserModel"
   cdkDropList
@@ -11,15 +12,15 @@
   <div
     mpWinDrag="false"
     cdkDrag
-    class="full-h browser-tab-item-container"
+    class="browser-tab-item-container"
     fxFlex="1 1"
     fxLayout="flex"
     *ngFor="let tab of browserModel?.tabs;let i =index"
     fxLayoutAlign="start center">
     <mp-browser-tab-item
-      class="full"
+      class="full-page"
       [tab]="tab"
-      [active]="tab.id===browserModel?.currentTabId"
+      [active]="tab.id===browserModel.currentTabId&&browserModel.tabs.length>1"
       (select)="selectTab(tab)"
       (close)="closeTab(tab)">
     </mp-browser-tab-item>

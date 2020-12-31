@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8520181",
+      "name": "more read",
+      "font_class": "more",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "8996317",
+      "name": "menu",
+      "font_class": "menu",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "12271555",
+      "name": "add",
+      "font_class": "add",
+      "unicode": "e6c5",
+      "unicode_decimal": 59077
+    },
+    {
       "icon_id": "6441897",
       "name": "empty",
       "font_class": "empty",
@@ -29,7 +50,7 @@
     {
       "icon_id": "14444159",
       "name": "maximize",
-      "font_class": "maximize1",
+      "font_class": "unmaximize",
       "unicode": "e61a",
       "unicode_decimal": 58906
     },

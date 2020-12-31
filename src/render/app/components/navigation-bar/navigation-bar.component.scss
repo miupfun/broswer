@@ -1,6 +1,14 @@
+:root {
+  --navigationbar-bg: var(--background-app-bar);
+  --navigationbar-color: var(--foreground-base);
+}
+
+
 .mp-navigation-bar-container {
   height: 36px;
-  background-color: lightgray;
+  background-color: var(--navigationbar-bg);
+  color: var(--navigationbar-color);
+  transition: all 300ms ease-in;
 
   .mp-navigation-bar-tab-container {
     overflow-x: hidden;

@@ -1,12 +1,13 @@
 .browser-tab-container {
   overflow-x: hidden;
+  transition: all 300ms ease-in;
 
   .browser-tab-item-container {
     min-width: 40px;
     overflow: hidden;
 
     &:not(:last-child) {
-      border-right: 1px solid darkgrey;
+      border-right: 1px solid var(--tab-active-bg);
     }
   }
 }
