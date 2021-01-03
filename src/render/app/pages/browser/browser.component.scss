@@ -16,12 +16,6 @@
 .mp-browser-body {
   height: calc(100% - 36px);
   overflow: auto;
-
-  webview {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
 }
 
 

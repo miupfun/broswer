@@ -5,7 +5,6 @@ import {RouterModule} from "@angular/router";
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MpWindowDragModule} from '../../components/window-drag';
 import {MpWindowSelectModule} from '../../components/window-select';
-import {BroswerWebviewComponent} from './components/broswer-webview/broswer-webview.component';
 import {BrowserTabComponent} from './components/browser-tab/browser-tab.component';
 import {BrowserContentComponent} from './components/browser-content/browser-content.component';
 import {NgxsModule} from "@ngxs/store";
@@ -18,10 +17,11 @@ import {MpNavigationBarModule} from "../../components/navigation-bar/navigation-
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
+import {MpBrowserWebviewModule} from "../../components/broswer-webview";
 
 
 @NgModule({
-  declarations: [BrowserComponent, BroswerWebviewComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent],
+  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -29,6 +29,7 @@ import {MatRippleModule} from "@angular/material/core";
     MpWindowDragModule,
     MpWindowSelectModule,
     MpNavigationBarModule,
+    MpBrowserWebviewModule,
     NgxsModule.forFeature([BrowserState]),
     RouterModule.forChild([
       {
@@ -41,7 +42,6 @@ import {MatRippleModule} from "@angular/material/core";
     MatIconModule,
     MatRippleModule
   ],
-  schemas: [NO_ERRORS_SCHEMA]
 })
 export class BrowserModule {
 }

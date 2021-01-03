@@ -3,7 +3,7 @@ import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
 export class BrowserActionsCreateTab {
   static readonly type = '[browser] BrowserActionsCreateTab';
 
-  constructor(public url?: string, public createTabId?: string) {
+  constructor(public createTabId?: string, public url?: string) {
   }
 }
 
@@ -39,6 +39,14 @@ export class BrowserActionsSetTabTheme {
   static readonly type = '[browser] BrowserActionsSetTabTheme'
 
   constructor(public bgColor?: string) {
+  }
+}
+
+
+export class BrowserActionsHistoryGo {
+  static readonly type = '[browser] BrowserActionsHistoryGo'
+
+  constructor(public bf: 0 | -1 | 1) {
   }
 }
 

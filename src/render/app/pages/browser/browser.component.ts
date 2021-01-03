@@ -3,7 +3,7 @@ import {Select, Store} from "@ngxs/store";
 import {BROWSER_STATE} from "./store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "./store/browser.model";
-import {BrowserActionsCreateTab, BrowserActionsSelectTab} from "./store/browser.actions";
+import {BrowserActionsCreateTab, BrowserActionsHistoryGo} from "./store/browser.actions";
 
 @Component({
   selector: 'mp-browser',
@@ -25,5 +25,9 @@ export class BrowserComponent implements OnInit {
 
   createNewTab() {
     this.store.dispatch(new BrowserActionsCreateTab())
+  }
+
+  historyGo(bf: -1 | 1 | 0) {
+    this.store.dispatch(new BrowserActionsHistoryGo(bf))
   }
 }

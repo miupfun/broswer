@@ -1,5 +1,6 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {remote, BrowserWindow} from 'electron'
+import {remote} from 'electron'
+import Platform = NodeJS.Platform;
 
 @Component({
   selector: 'mp-window-ctrl',
@@ -8,6 +9,8 @@ import {remote, BrowserWindow} from 'electron'
 })
 export class WindowControllerComponent implements OnInit {
   isMaxSize: boolean;
+
+
 
 
   constructor(private zone: NgZone) {
@@ -36,7 +39,7 @@ export class WindowControllerComponent implements OnInit {
 
     })
   }
-  
+
   toggleFullScreen() {
     if (this.isMaxSize) {
       remote.getCurrentWindow().unmaximize()

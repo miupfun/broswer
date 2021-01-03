@@ -35,4 +35,8 @@ export class BrowserTabItemComponent implements OnInit {
     e.stopPropagation()
     this.close.emit()
   }
+
+  editTabUrl() {
+    console.log('---')
+  }
 }

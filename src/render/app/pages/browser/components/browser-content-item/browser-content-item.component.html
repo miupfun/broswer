@@ -1,3 +1,7 @@
-<p>browser-content-item works!
-  <ng-content></ng-content>
-</p>
+<mp-browser-webview [src]="browser?.url"
+                    (themeChange)="themeChange($event)"
+                    (titleChange)="titleChange($event)"
+                    (iconChange)="iconChange($event)"
+                    (newWindow)="createTab($event)"
+>
+</mp-browser-webview>

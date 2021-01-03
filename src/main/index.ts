@@ -5,7 +5,7 @@ app.on('ready', () => {
   const w = new BrowserWindow({
     show: false,
     frame: !is.windows,
-    titleBarStyle: "hidden",
+    titleBarStyle: "hiddenInset",
     width: 1280,
     height: 720,
     minWidth: 1280,

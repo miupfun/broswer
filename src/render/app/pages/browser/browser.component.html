@@ -8,6 +8,12 @@
         <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple>
           <i class="iconfont icon-menu"></i>
         </div>
+        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(-1)">
+          <i class="iconfont icon-left"></i>
+        </div>
+        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(1)">
+          <i class="iconfont icon-right"></i>
+        </div>
       </div>
       <div class="" fxFlex="1 1" style="overflow: hidden">
         <mp-browser-tab></mp-browser-tab>
@@ -20,7 +26,6 @@
     </div>
   </mp-navigation-bar>
 </div>
-
 <div class="mp-browser-body full-width">
   <mp-browser-content></mp-browser-content>
 </div>

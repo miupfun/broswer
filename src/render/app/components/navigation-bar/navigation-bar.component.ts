@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {BrowserActionsCreateTab, BrowserActionsSelectTab} from "../../pages/browser/store/browser.actions";
 import {BROWSER_STATE} from "../../pages/browser/store/browser.state";
-import Platform = NodeJS.Platform;
+import Process = NodeJS.Process;
 
 @Component({
   selector: 'mp-navigation-bar',
@@ -17,10 +17,9 @@ export class NavigationBarComponent implements OnInit {
   @Input('foregroundColor')
   foregroundColor: string = ''
 
-  platForm: Platform | null = null
+  process: Process = process
 
   constructor(private store: Store) {
-    this.platForm = process.platform
   }
 
   ngOnInit(): void {

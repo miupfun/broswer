@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Select, Store} from "@ngxs/store";
-import {BrowserActionsCreateTab, BrowserActionsSetTabTheme, BrowserActionsUpdateTab} from "../../store/browser.actions";
+import {Action, Select} from "@ngxs/store";
 import {BROWSER_STATE} from "../../store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "../../store/browser.model";
+import {BrowserActionsSetTabTheme} from "../../store/browser.actions";
+import {BrowserWebviewController} from "../../../../components/broswer-webview";
 
 @Component({
   selector: 'mp-browser-content',
@@ -15,32 +16,16 @@ export class BrowserContentComponent implements OnInit {
   @Select(BROWSER_STATE)
   $store: Observable<BrowserModel> | undefined;
 
-  constructor(private store: Store) {
+  constructor(private browserController: BrowserWebviewController) {
   }
 
   ngOnInit(): void {
   }
 
-  themeChange(id: string, theme: string) {
-    this.store.dispatch(new BrowserActionsUpdateTab(id, {
-      theme: theme
-    }))
+
+  @Action(BrowserActionsSetTabTheme)
+  setTheme() {
+    console.log('----------')
   }
 
-  titleChange(id: string, title: string) {
-    this.store.dispatch(new BrowserActionsUpdateTab(id, {
-      title: title
-    }))
-  }
-
-  iconChange(id: string, icons: string[]) {
-    this.store.dispatch(new BrowserActionsUpdateTab(id, {
-      icon: icons[icons.length - 1] || ''
-    }))
-  }
-
-  createTab(id: string, winOption: { type: string; url: string }) {
-    this.store.dispatch(new BrowserActionsCreateTab(winOption.url, id)).subscribe(() => {
-    })
-  }
 }

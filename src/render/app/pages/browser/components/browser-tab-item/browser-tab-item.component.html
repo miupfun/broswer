@@ -2,6 +2,8 @@
      mpWinDrag="false"
      fxLayout="row"
      (click)="selectTab()"
+     (dblclick)="editTabUrl()"
+     matRipple
      [class.active]="active">
   <div class="tab-icon" fxFlex="20px" fxFlexAlign="center">
     <img *ngIf="tab?.icon;else emptyIcon" [src]="tab?.icon">

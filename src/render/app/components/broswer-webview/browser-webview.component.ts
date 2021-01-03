@@ -4,26 +4,34 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges, OnDestroy,
+  OnChanges,
+  OnDestroy,
   OnInit,
-  Output, Renderer2, SimpleChanges,
+  Output,
+  Renderer2,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {fromEvent, Observable} from "rxjs";
-import {environment} from "../../../../../environments/environment";
+import {environment} from "../../../environments/environment";
+import {BrowserWebviewController} from "./browser-webview.controller";
 
 @Component({
-  selector: 'mp-broswer-webview',
-  templateUrl: './broswer-webview.component.html',
-  styleUrls: ['./broswer-webview.component.scss'],
+  selector: 'mp-browser-webview',
+  templateUrl: './browser-webview.component.html',
+  styleUrls: ['./browser-webview.component.scss'],
 })
-export class BroswerWebviewComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @ViewChild('webview', {static: true, read: ElementRef})
   private webview!: ElementRef;
 
+
+  @Input()
+  id: any = BrowserWebviewComponent.nextId();
+
   @Input()
   src: string | undefined;
+
 
   nodeApiEnable: boolean = false
 
@@ -37,7 +45,7 @@ export class BroswerWebviewComponent implements OnInit, AfterViewInit, OnChanges
   @Output()
   newWindow: EventEmitter<{ type: string, url: string }> = new EventEmitter<{ type: string, url: string }>()
 
-  constructor(private renderer2: Renderer2) {
+  constructor(private renderer2: Renderer2, private browserWebviewController: BrowserWebviewController) {
     console.log('create webview')
   }
 
@@ -72,7 +80,11 @@ export class BroswerWebviewComponent implements OnInit, AfterViewInit, OnChanges
     this.webview.nativeElement.addEventListener('page-favicon-updated', (e: any) => {
       this.iconChange.emit(e.favicons || [])
     })
+
     this.webview.nativeElement.addEventListener('dom-ready', (e: any) => {
+      this.webview.nativeElement.openDevTools({
+        mode: "right"
+      })
     })
   }
 
@@ -85,5 +97,11 @@ export class BroswerWebviewComponent implements OnInit, AfterViewInit, OnChanges
   ngOnDestroy(): void {
 
 
+  }
+
+  private static currentId = 0;
+
+  public static nextId() {
+    return this.currentId++
   }
 }

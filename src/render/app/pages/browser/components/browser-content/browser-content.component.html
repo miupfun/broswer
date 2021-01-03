@@ -1,16 +1,10 @@
 <div *ngIf="$store|async  as browserState"
      class="browser-content">
-  <div
+  <mp-browser-content-item
     class="browser-inner-box"
     *ngFor="let browser of browserState.browserViews;let i = index"
     [class.show]="browser.id===browserState.currentTabId"
+    [browser]="browser"
   >
-    <mp-broswer-webview [src]="browser.url"
-                        (themeChange)="themeChange(browser.id,$event)"
-                        (titleChange)="titleChange(browser.id,$event)"
-                        (iconChange)="iconChange(browser.id,$event)"
-                        (newWindow)="createTab(browser.id,$event)"
-    >
-    </mp-broswer-webview>
-  </div>
+  </mp-browser-content-item>
 </div>

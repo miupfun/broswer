@@ -2,17 +2,11 @@
   cursor: pointer;
   padding: 0 10px;
   box-sizing: border-box;
-
-  &:hover {
-    .tab-right-menu {
-      display: flex;
-      transition: all 300ms ease-in;
-    }
-  }
+  position: relative;
 
   &.active {
     background-color: var(--tab-active-bg);
-  }
+   }
 
   .tab-icon {
     width: 20px;
@@ -38,7 +32,7 @@
     width: auto;
     align-items: center;
     justify-content: right;
-    display: none;
+    display: flex;
 
     .tab-menu-item {
       width: 25px;
