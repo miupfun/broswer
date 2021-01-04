@@ -1,7 +1,11 @@
-<mp-browser-webview [src]="browser?.url"
-                    (themeChange)="themeChange($event)"
-                    (titleChange)="titleChange($event)"
-                    (iconChange)="iconChange($event)"
-                    (newWindow)="createTab($event)"
+<mp-browser-webview
+  [id]="browser.id"
+  [src]="browser?.url"
+  (didChangeThemeColor)="themeChange($event)"
+  (pageTitleUpdate)="titleChange($event)"
+  (pageFaviconUpdated)="iconChange($event)"
+  (newWindow)="createTab($event)"
+  (didNavigateInPage)="didNavigateInPage($event)"
+  (didFinishLoad)="loadFinish($event)"
 >
 </mp-browser-webview>

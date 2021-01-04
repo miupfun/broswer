@@ -1,9 +1,9 @@
-import {Action, State, StateContext, StateToken} from "@ngxs/store";
+import {Action, Selector, State, StateContext, StateToken} from "@ngxs/store";
 import {BrowserModel} from "./browser.model";
 import {
   BrowserActionsCloseTab,
   BrowserActionsCreateTab,
-  BrowserActionsDropTab,
+  BrowserActionsDropTab, BrowserActionsHistoryGo,
   BrowserActionsSelectTab, BrowserActionsSetTabTheme,
   BrowserActionsUpdateTab
 } from "./browser.actions";
@@ -17,6 +17,7 @@ import {RepairType} from "@ngxs/store/operators/utils";
 import {BrowserViewEntity} from "../../../entitys/browser-view.entity";
 import {ColorUtil} from "../../../utils/color.util";
 import {combineAll, flatMap} from "rxjs/internal/operators";
+import {BrowserWebviewController} from "../../../components/broswer-webview";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -26,7 +27,7 @@ export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 })
 @Injectable({providedIn: "root"})
 export class BrowserState {
-  constructor() {
+  constructor(private browserWebviewController: BrowserWebviewController) {
   }
 
   @Action(BrowserActionsSelectTab)
@@ -67,7 +68,9 @@ export class BrowserState {
       theme: '',
       icon: '',
       history: [],
-      options: {}
+      options: {},
+      canGoBack: false,
+      canGoForward: false
     }
     const newBrowser: BrowserViewEntity = {
       id: newTab.id,
@@ -78,27 +81,33 @@ export class BrowserState {
         {
           tabs: insertItem<BrowserTabEntity>(newTab, insertIndex),
           browserViews: append([newBrowser]),
-          currentTabId: newTab.id || null,
         }
       )
-    ))
+    )).pipe(
+      (data) => {
+        ctx.dispatch(new BrowserActionsSelectTab(newTab.id))
+        return data
+      }
+    )
   }
 
   @Action(BrowserActionsCloseTab)
   closeTab(ctx: StateContext<BrowserModel>, payload: BrowserActionsCloseTab) {
     const tabIndex = ctx.getState().tabs.findIndex(t => t.id === payload.tabId)
     const browserViewIndex = ctx.getState().browserViews.findIndex(v => v.id === payload.tabId)
-
     const patchState: any = {
       browserViews: removeItem(browserViewIndex),
       tabs: removeItem(tabIndex)
     }
-    if (payload.tabId === ctx.getState().currentTabId) {
-      let nextSelectIndex: number = tabIndex - 1 < 0 ? 1 : tabIndex - 1;
-      const nextTab = ctx.getState().tabs[nextSelectIndex]
-      patchState.currentTabId = nextTab?.id
-    }
-    return of(ctx.setState(patch(patchState)))
+    return of(ctx.setState(patch(patchState))).pipe(data => {
+      if (payload.tabId === ctx.getState().currentTabId) {
+        let nextSelectIndex: number = tabIndex - 1 < 0 ? 1 : tabIndex - 1;
+        const nextTab = ctx.getState().tabs[nextSelectIndex]
+
+        ctx.dispatch(new BrowserActionsSelectTab(nextTab?.id))
+      }
+      return data
+    })
   }
 
   @Action(BrowserActionsUpdateTab)
@@ -112,7 +121,6 @@ export class BrowserState {
       )
     ).pipe(
       (data) => {
-        console.log(payload.id, ctx.getState().currentTabId)
         if (payload.id !== ctx.getState().currentTabId) {
           return data
         }
@@ -161,5 +169,17 @@ export class BrowserState {
     return of(ctx.setState(
       patch(updateState)
     ))
+  }
+
+  @Action(BrowserActionsHistoryGo)
+  browserHistoryGo(ctx: StateContext<BrowserModel>, payload: BrowserActionsHistoryGo) {
+    return of(
+      this.browserWebviewController.historyGo(ctx.getState().currentTabId, payload.bf)
+    )
+  }
+
+  @Selector()
+  static currentTab(state: BrowserModel) {
+    return state.tabs.find(t => t.id === state.currentTabId)
   }
 }

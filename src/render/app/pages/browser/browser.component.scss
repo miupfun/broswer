@@ -1,7 +1,10 @@
 .mp-browser-header {
   height: 36px;
-  .navigation-bar-menus{
-    div.navigation-bar-menu-item{
+
+  .navigation-bar-menus {
+    button.navigation-bar-menu-item {
+      border: none;
+      background-color: transparent;
       width: 34px;
       height: 34px;
       display: flex;
@@ -9,6 +12,12 @@
       justify-content: center;
       cursor: pointer;
       border-radius: 50%;
+      color: var(--foreground-base);
+      outline: none;
+
+      &[disabled] {
+        color: var(--foreground-disabled);
+      }
     }
   }
 }

@@ -5,23 +5,26 @@
   >
     <div class="full-page" fxLayout="row">
       <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
-        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple>
+        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(0)">
           <i class="iconfont icon-menu"></i>
-        </div>
-        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(-1)">
+        </button>
+        <button fxFlexAlign="center" [disabled]="!currentTab?.canGoBack" class="navigation-bar-menu-item" matRipple
+                (click)="historyGo(-1)">
           <i class="iconfont icon-left"></i>
-        </div>
-        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(1)">
+        </button>
+
+        <button fxFlexAlign="center" [disabled]="!currentTab?.canGoForward" class="navigation-bar-menu-item" matRipple
+                (click)="historyGo(1)">
           <i class="iconfont icon-right"></i>
-        </div>
+        </button>
       </div>
       <div class="" fxFlex="1 1" style="overflow: hidden">
         <mp-browser-tab></mp-browser-tab>
       </div>
       <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
-        <div fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
+        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
           <i class="iconfont icon-add"></i>
-        </div>
+        </button>
       </div>
     </div>
   </mp-navigation-bar>

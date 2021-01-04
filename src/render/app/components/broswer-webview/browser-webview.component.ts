@@ -14,6 +14,15 @@ import {
 } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {BrowserWebviewController} from "./browser-webview.controller";
+import {
+  ConsoleMessageEvent, DidChangeThemeColorEvent,
+  DidFailLoadEvent,
+  DidFrameFinishLoadEvent, DidNavigateEvent, DidNavigateInPageEvent,
+  LoadCommitEvent,
+  PageFaviconUpdatedEvent,
+  PageTitleUpdatedEvent,
+  WebviewTag
+} from 'electron'
 
 @Component({
   selector: 'mp-browser-webview',
@@ -23,69 +32,88 @@ import {BrowserWebviewController} from "./browser-webview.controller";
 export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @ViewChild('webview', {static: true, read: ElementRef})
-  private webview!: ElementRef;
-
-
-  @Input()
-  id: any = BrowserWebviewComponent.nextId();
+  private webview!: ElementRef<WebviewTag>;
 
   @Input()
   src: string | undefined;
+
+  @Input()
+  id: any;
 
 
   nodeApiEnable: boolean = false
 
   @Output()
-  themeChange: EventEmitter<string> = new EventEmitter<string>()
+  private loadCommit: EventEmitter<LoadCommitEvent> = new EventEmitter<LoadCommitEvent>()
   @Output()
-  titleChange: EventEmitter<string> = new EventEmitter<string>()
+  private didFinishLoad: EventEmitter<Event> = new EventEmitter<Event>()
   @Output()
-  iconChange: EventEmitter<string[]> = new EventEmitter<string[]>()
+  private didFailLoad: EventEmitter<DidFailLoadEvent> = new EventEmitter<DidFailLoadEvent>()
+  @Output()
+  private didFrameFinishLoad: EventEmitter<DidFrameFinishLoadEvent> = new EventEmitter<DidFrameFinishLoadEvent>()
+  @Output()
+  private didStartLoading: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private didStopLoading: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private newWindow: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private willNavigate: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private didChangeThemeColor: EventEmitter<DidChangeThemeColorEvent> = new EventEmitter<DidChangeThemeColorEvent>()
+  @Output()
+  private pageTitleUpdate: EventEmitter<PageTitleUpdatedEvent> = new EventEmitter<PageTitleUpdatedEvent>()
+  @Output()
+  private pageFaviconUpdated: EventEmitter<PageFaviconUpdatedEvent> = new EventEmitter<PageFaviconUpdatedEvent>()
+  @Output()
+  private enterHtmlFullScreen: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private leaveHtmlFullScreen: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private consoleMessage: EventEmitter<ConsoleMessageEvent> = new EventEmitter<ConsoleMessageEvent>()
+  @Output()
+  private didNavigate: EventEmitter<DidNavigateEvent> = new EventEmitter<DidNavigateEvent>()
+  @Output()
+  private didNavigateInPage: EventEmitter<DidNavigateInPageEvent> = new EventEmitter<DidNavigateInPageEvent>()
+  @Output()
+  private domReady: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private close: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private crashed: EventEmitter<Event> = new EventEmitter<Event>()
+  @Output()
+  private pluginCrashed: EventEmitter<Event> = new EventEmitter<Event>()
 
-  @Output()
-  newWindow: EventEmitter<{ type: string, url: string }> = new EventEmitter<{ type: string, url: string }>()
 
   constructor(private renderer2: Renderer2, private browserWebviewController: BrowserWebviewController) {
-    console.log('create webview')
   }
 
   ngOnInit(): void {
+    this.browserWebviewController.register(this)
   }
 
 
   ngAfterViewInit(): void {
-    this.webview.nativeElement.addEventListener('did-start-loading', () => {
-    })
-    this.webview.nativeElement.addEventListener('did-stop-loading', () => {
-    })
-    this.webview.nativeElement.addEventListener('new-window', (e: any) => {
-      this.newWindow.emit({
-        type: e.type,
-        url: e.url
-      })
-    })
-    this.webview.nativeElement.addEventListener('will-navigate', () => {
-    })
-    this.webview.nativeElement.addEventListener('did-navigate', () => {
-    })
-
-    this.webview.nativeElement.addEventListener('did-navigate-in-page', () => {
-    })
-    this.webview.nativeElement.addEventListener('did-change-theme-color', (e: any) => {
-      this.themeChange.emit(e.themeColor)
-    })
-    this.webview.nativeElement.addEventListener('page-title-updated', (e: any) => {
-      this.titleChange.emit(e.title)
-    })
-    this.webview.nativeElement.addEventListener('page-favicon-updated', (e: any) => {
-      this.iconChange.emit(e.favicons || [])
-    })
-
-    this.webview.nativeElement.addEventListener('dom-ready', (e: any) => {
-      this.webview.nativeElement.openDevTools({
-        mode: "right"
-      })
-    })
+    this.instance.addEventListener('load-commit', (e) => this.loadCommit.emit(e))
+    this.instance.addEventListener('did-finish-load', (e) => this.didFinishLoad.emit(e))
+    this.instance.addEventListener('did-fail-load', (e) => this.didFailLoad.emit(e))
+    this.instance.addEventListener('did-frame-finish-load', (e) => this.didFrameFinishLoad.emit(e))
+    this.instance.addEventListener('did-start-loading', (e) => this.didStartLoading.emit(e))
+    this.instance.addEventListener('did-stop-loading', (e) => this.didStopLoading.emit(e))
+    this.instance.addEventListener('dom-ready', (e) => this.domReady.emit(e))
+    this.instance.addEventListener('page-title-updated', (e) => this.pageTitleUpdate.emit(e))
+    this.instance.addEventListener('page-favicon-updated', (e) => this.pageFaviconUpdated.emit(e))
+    this.instance.addEventListener('did-change-theme-color', (e) => this.didChangeThemeColor.emit(e))
+    this.instance.addEventListener('enter-html-full-screen', (e) => this.enterHtmlFullScreen.emit(e))
+    this.instance.addEventListener('leave-html-full-screen', (e) => this.leaveHtmlFullScreen.emit(e))
+    this.instance.addEventListener('console-message', (e) => this.consoleMessage.emit(e))
+    this.instance.addEventListener('new-window', (e) => this.newWindow.emit(e))
+    this.instance.addEventListener('will-navigate', (e) => this.willNavigate.emit(e))
+    this.instance.addEventListener('did-navigate', (e) => this.didNavigate.emit(e))
+    this.instance.addEventListener('did-navigate-in-page', (e) => this.didNavigateInPage.emit(e))
+    this.instance.addEventListener('close', (e) => this.close.emit(e))
+    this.instance.addEventListener('crashed', (e) => this.crashed.emit(e))
+    this.instance.addEventListener('plugin-crashed', (e) => this.pluginCrashed.emit(e))
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -99,9 +127,7 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges
 
   }
 
-  private static currentId = 0;
-
-  public static nextId() {
-    return this.currentId++
+  public get instance() {
+    return this.webview.nativeElement
   }
 }

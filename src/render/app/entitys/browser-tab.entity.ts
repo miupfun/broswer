@@ -10,4 +10,6 @@ export class BrowserTabEntity {
   icon: string = ''
   history: string[] = []
   options: WebviewOptionEntity | undefined
+  canGoBack: boolean = false
+  canGoForward: boolean = false
 }
