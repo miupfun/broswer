@@ -6,7 +6,7 @@
     <i *ngIf="!isMaxSize" class="iconfont icon-maximize"></i>
     <i *ngIf="isMaxSize" class="iconfont icon-unmaximize"></i>
   </div>
-  <div class="mp-ctrl-btn close-warn">
+  <div class="mp-ctrl-btn close-warn" (click)="windowClose()">
     <i class="iconfont icon-close"></i>
   </div>
 </div>

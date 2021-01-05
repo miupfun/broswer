@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BrowserWebviewComponent} from "./browser-webview.component";
 import {LoadURLOptions} from "electron";
+import {URL} from 'url'
+import {UrlUtil} from "../../utils/url.util";
 
 @Injectable({
   providedIn: 'any'
@@ -41,6 +43,7 @@ export class BrowserWebviewController {
     if (!webview) {
       return
     }
-    return webview.instance.executeJavaScript(`location.href="${url}"`).then()
+    const urlParse = UrlUtil.format(url)
+    webview.instance.executeJavaScript(`location.href="${urlParse}"`).then()
   }
 }

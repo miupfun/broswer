@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {DOCUMENT} from "@angular/common";
+import {UrlUtil} from "../../utils/url.util";
 
 @Component({
   selector: 'mp-new-tab',
@@ -9,7 +10,7 @@ import {DOCUMENT} from "@angular/common";
 })
 export class NewTabComponent implements OnInit {
 
-  value: string = 'http://www.baidu.com'
+  value: string = ''
 
   constructor(private title: Title, @Inject(DOCUMENT) private document: Document) {
   }
@@ -20,6 +21,8 @@ export class NewTabComponent implements OnInit {
   }
 
   submit() {
-    location.href = this.value
+    if (!this.value)
+      return
+    location.href = UrlUtil.format(this.value)
   }
 }

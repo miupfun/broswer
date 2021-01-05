@@ -14,7 +14,7 @@ import {BrowserActionsEditUrl, BrowserActionsFinishEditUrl} from "../../store/br
 })
 export class TabUrlEditComponent implements OnInit, AfterViewInit {
 
-  control: FormControl | undefined;
+  control: FormControl | any;
   @ViewChild("inputElement", {static: true})
   inputElement: ElementRef | undefined;
 

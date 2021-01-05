@@ -1,6 +1,5 @@
 .mp-tab-url-edit-container {
   box-sizing: border-box;
-
   .mp-tab-url-edit-input {
     border: none;
     outline: none;
@@ -12,6 +11,7 @@
     color: var(--navigationbar-color);
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 36px;
   }
 }

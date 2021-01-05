@@ -11,7 +11,7 @@ app.on('ready', () => {
     minWidth: 1280,
     minHeight: 720,
     center: true,
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
@@ -25,3 +25,7 @@ app.on('ready', () => {
     w.show();
   });
 });
+app.on('window-all-closed', () => {
+  app.quit()
+  app.exit()
+})

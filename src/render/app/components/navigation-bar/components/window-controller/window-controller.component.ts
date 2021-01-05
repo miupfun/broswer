@@ -33,7 +33,7 @@ export class WindowControllerComponent implements OnInit {
         this.isFullScreen = true
       })
     })
-    
+
     remote.getCurrentWindow().on('leave-full-screen', () => {
       this.zone.run(() => {
         this.isFullScreen = false
@@ -51,6 +51,10 @@ export class WindowControllerComponent implements OnInit {
 
   windowMinimize() {
     remote.getCurrentWindow().minimize()
+  }
+
+  windowClose() {
+    remote.getCurrentWindow().close()
   }
 }
 
