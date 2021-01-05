@@ -10,6 +10,10 @@ const routes: Routes = [
 
     path: 'setting',
     loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingModule)
+  },
+  {
+    path: 'new_tab',
+    loadChildren: () => import('./pages/new-tab/new-tab.module').then(m => m.NewTabModule)
   }
 ];
 

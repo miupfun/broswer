@@ -1,19 +1,22 @@
 <div class="mp-browser-header full-width" *ngIf="$browserState |async as browserModel">
   <mp-navigation-bar
     mpWinNoSelect
-    [style]="{'--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,'--navigationbar-color':browserModel.navigationBarConfig.foregroundColor}"
-  >
-    <div class="full-page" fxLayout="row">
+    [style]="{'--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,'--navigationbar-color':browserModel.navigationBarConfig.foregroundColor}">
+
+    <div class="full-page" *ngIf="browserModel.editTabId">
+      <mp-tab-url-edit></mp-tab-url-edit>
+    </div>
+    <div class="full-page" *ngIf="!browserModel.editTabId" fxLayout="row">
       <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
         <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(0)">
           <i class="iconfont icon-menu"></i>
         </button>
-        <button fxFlexAlign="center" [disabled]="!currentTab?.canGoBack" class="navigation-bar-menu-item" matRipple
+        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
                 (click)="historyGo(-1)">
           <i class="iconfont icon-left"></i>
         </button>
 
-        <button fxFlexAlign="center" [disabled]="!currentTab?.canGoForward" class="navigation-bar-menu-item" matRipple
+        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
                 (click)="historyGo(1)">
           <i class="iconfont icon-right"></i>
         </button>

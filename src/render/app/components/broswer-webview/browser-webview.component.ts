@@ -41,7 +41,7 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges
   id: any;
 
 
-  nodeApiEnable: boolean = false
+  nodeApiEnable: boolean = true
 
   @Output()
   private loadCommit: EventEmitter<LoadCommitEvent> = new EventEmitter<LoadCommitEvent>()

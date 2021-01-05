@@ -4,6 +4,7 @@ import {NavigationBarConfigEntity} from "../../../entitys/navigation-bar-config.
 
 export class BrowserModel {
   currentTabId: string | null = null;
+  editTabId: string | null = null;
   tabs: BrowserTabEntity[] = [];
   browserViews: BrowserViewEntity[] = [];
   navigationBarConfig: NavigationBarConfigEntity = new NavigationBarConfigEntity()

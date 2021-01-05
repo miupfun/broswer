@@ -3,7 +3,7 @@ import {BrowserModel} from "./browser.model";
 import {
   BrowserActionsCloseTab,
   BrowserActionsCreateTab,
-  BrowserActionsDropTab, BrowserActionsHistoryGo,
+  BrowserActionsDropTab, BrowserActionsEditUrl, BrowserActionsFinishEditUrl, BrowserActionsHistoryGo,
   BrowserActionsSelectTab, BrowserActionsSetTabTheme,
   BrowserActionsUpdateTab
 } from "./browser.actions";
@@ -18,6 +18,7 @@ import {BrowserViewEntity} from "../../../entitys/browser-view.entity";
 import {ColorUtil} from "../../../utils/color.util";
 import {combineAll, flatMap} from "rxjs/internal/operators";
 import {BrowserWebviewController} from "../../../components/broswer-webview";
+import {environment} from "../../../../environments/environment";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -63,8 +64,7 @@ export class BrowserState {
       createIndex: lastTabIndex + 1,
       createById: payload.createTabId || null,
       title: '',
-      // url: payload.url || `${environment.rendererUrl}/#/setting`,
-      url: payload.url || `https://www.baidu.com`,
+      url: payload.url || `${environment.rendererUrl}/#/new_tab`,
       theme: '',
       icon: '',
       history: [],
@@ -178,8 +178,32 @@ export class BrowserState {
     )
   }
 
+  @Action(BrowserActionsEditUrl)
+  editTabUrl(ctx: StateContext<BrowserModel>, payload: BrowserActionsEditUrl) {
+    return of(ctx.patchState({
+      editTabId: payload.tabId
+    }))
+  }
+
+  @Action(BrowserActionsFinishEditUrl)
+  finishEditTabUrl(ctx: StateContext<BrowserModel>, payload: BrowserActionsFinishEditUrl) {
+    if (payload.url) {
+      this.browserWebviewController.navigationTo(ctx.getState().editTabId, payload.url)
+    }
+    return of(ctx.patchState({
+      editTabId: null
+    }))
+  }
+
+
   @Selector()
   static currentTab(state: BrowserModel) {
     return state.tabs.find(t => t.id === state.currentTabId)
   }
+
+  @Selector()
+  static editTab(state: BrowserModel) {
+    return state.tabs.find(t => t.id === state.editTabId)
+  }
+
 }

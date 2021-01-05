@@ -17,7 +17,6 @@ export class BrowserTabComponent implements OnInit {
   @Select(BROWSER_STATE)
   $browserState: Observable<BrowserModel> | undefined
 
-
   constructor(private store: Store) {
   }
 

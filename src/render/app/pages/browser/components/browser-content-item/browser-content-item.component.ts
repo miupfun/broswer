@@ -1,9 +1,10 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngxs/store";
-import {BrowserActionsCreateTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
+import {BrowserActionsCloseTab, BrowserActionsCreateTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
 import {BrowserViewEntity} from "../../../../entitys/browser-view.entity";
 import {
   DidChangeThemeColorEvent,
+  DidFrameFinishLoadEvent,
   DidNavigateInPageEvent,
   PageFaviconUpdatedEvent,
   PageTitleUpdatedEvent
@@ -19,10 +20,10 @@ export class BrowserContentItemComponent implements OnInit {
 
 
   @Input('browser')
-  browser: BrowserViewEntity | null = null;
+  browser: BrowserViewEntity | undefined;
 
   @ViewChild(BrowserWebviewComponent)
-  webview: BrowserWebviewComponent | null = null;
+  webview: BrowserWebviewComponent | undefined;
 
 
   constructor(private store: Store) {
@@ -32,45 +33,63 @@ export class BrowserContentItemComponent implements OnInit {
   }
 
   themeChange(e: DidChangeThemeColorEvent) {
-    if (this.browser) {
-      this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-        theme: e.themeColor
-      }))
-    }
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
+      theme: e.themeColor
+    }))
+
   }
 
   titleChange(e: PageTitleUpdatedEvent) {
-    if (this.browser)
-      this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-        title: e.title
-      }))
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
+      title: e.title
+    }))
   }
 
   iconChange(icons: PageFaviconUpdatedEvent) {
-    if (this.browser)
-      this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-        icon: icons.favicons[icons.favicons.length - 1]
-      }))
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
+      icon: icons.favicons[icons.favicons.length - 1]
+    }))
   }
 
-  loadFinish(webview: Document | any) {
-    console.log(webview)
-  }
 
   createTab(winOption: Event | any) {
-    if (this.browser)
-      this.store.dispatch(new BrowserActionsCreateTab(this.browser.id, winOption.url)).subscribe(() => {
-      })
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsCreateTab(this.browser.id, winOption.url)).subscribe(() => {
+    })
+  }
+
+  didStartLoading($event: DidNavigateInPageEvent | any) {
+    console.log('didStartLoading')
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
+      url: $event.target.src,
+      title: $event.target.getTitle()
+    }))
+  }
+
+  didFinishLoad($event: DidFrameFinishLoadEvent | any) {
+    console.log('didFinishLoad')
+    if (!this.browser) return
+    this.webview?.instance.focus()
+    this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
+      url: $event.target.src,
+      title: $event.target.getTitle()
+    }))
+  }
+
+  didStopLoading($event:Event){
+    console.log('didStopLoading')
   }
 
   didNavigateInPage($event: DidNavigateInPageEvent | any) {
-    if (this.browser) {
-      this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-        canGoForward: $event.target?.canGoForward(),
-        canGoBack: $event.target?.canGoBack(),
-        url: $event.target.getURL(),
-        title: $event.target.getTitle()
-      }))
-    }
+    console.log('didNavigateInPage')
+  }
+
+  close(event: Event) {
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsCloseTab(this.browser.id))
   }
 }

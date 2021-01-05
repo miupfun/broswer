@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BrowserTabEntity} from "../../../../entitys/browser-tab.entity";
+import {Store} from "@ngxs/store";
+import {BrowserActionsCloseTab, BrowserActionsEditUrl} from "../../store/browser.actions";
 
 @Component({
   selector: 'mp-browser-tab-item',
@@ -19,7 +21,7 @@ export class BrowserTabItemComponent implements OnInit {
   @Output()
   close: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() {
+  constructor(private store: Store) {
   }
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class BrowserTabItemComponent implements OnInit {
   }
 
   editTabUrl() {
-    console.log('---')
+    if (this.tab)
+      this.store.dispatch(new BrowserActionsEditUrl(this.tab.id))
   }
 }

@@ -1,0 +1,17 @@
+.mp-tab-url-edit-container {
+  box-sizing: border-box;
+
+  .mp-tab-url-edit-input {
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    color: var(--navigationbar-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+  }
+}

@@ -2,7 +2,7 @@
      mpWinDrag
      fxLayout="row"
 >
-  <mp-mac-controller *ngIf="process.platform==='darwin'"></mp-mac-controller>
+  <mp-mac-controller fxFlexAlign="start" *ngIf="process.platform==='darwin'"></mp-mac-controller>
   <div fxFlex="1 1"
        fxLayout="row"
        class="mp-navigation-bar-tab-container">

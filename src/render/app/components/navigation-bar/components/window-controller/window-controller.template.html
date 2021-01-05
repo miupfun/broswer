@@ -1,4 +1,4 @@
-<div class="mp-window-ctrl" fxLayout="row" fxLayoutAlign="center end" mpWinDrag="false">
+<div class="mp-window-ctrl" [class.hide]="isFullScreen" fxLayout="row" fxLayoutAlign="center end" mpWinDrag="false">
   <div class="mp-ctrl-btn" (click)="windowMinimize()">
     <i class="iconfont icon-minimize"></i>
   </div>

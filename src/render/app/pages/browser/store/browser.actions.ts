@@ -50,3 +50,16 @@ export class BrowserActionsHistoryGo {
   }
 }
 
+export class BrowserActionsEditUrl {
+  static readonly type = '[browser] BrowserActionsEditUrl'
+
+  constructor(public tabId: string) {
+  }
+}
+
+export class BrowserActionsFinishEditUrl {
+  static readonly type = '[browser] BrowserActionsFinishEditUrl'
+  constructor(public url: string) {
+  }
+}
+

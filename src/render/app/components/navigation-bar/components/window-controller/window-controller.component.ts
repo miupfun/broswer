@@ -9,9 +9,7 @@ import Platform = NodeJS.Platform;
 })
 export class WindowControllerComponent implements OnInit {
   isMaxSize: boolean;
-
-
-
+  isFullScreen: boolean = remote.getCurrentWindow().isFullScreen()
 
   constructor(private zone: NgZone) {
     this.isMaxSize = remote.getCurrentWindow().isMaximized()
@@ -32,11 +30,14 @@ export class WindowControllerComponent implements OnInit {
 
     remote.getCurrentWindow().on('enter-full-screen', () => {
       this.zone.run(() => {
-        this.isMaxSize = false
+        this.isFullScreen = true
       })
     })
+    
     remote.getCurrentWindow().on('leave-full-screen', () => {
-
+      this.zone.run(() => {
+        this.isFullScreen = false
+      })
     })
   }
 
