@@ -3,11 +3,15 @@ import {BrowserModel} from "./browser.model";
 import {
   BrowserActionsCloseTab,
   BrowserActionsCreateTab,
-  BrowserActionsDropTab, BrowserActionsEditUrl, BrowserActionsFinishEditUrl, BrowserActionsHistoryGo,
-  BrowserActionsSelectTab, BrowserActionsSetTabTheme,
+  BrowserActionsDropTab,
+  BrowserActionsEditUrl,
+  BrowserActionsFinishEditUrl,
+  BrowserActionsHistoryGo,
+  BrowserActionsSelectTab,
+  BrowserActionsSetTabTheme,
   BrowserActionsUpdateTab
 } from "./browser.actions";
-import {combineLatest, of} from "rxjs";
+import {of} from "rxjs";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
 import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
 import {Injectable} from "@angular/core";
@@ -16,7 +20,6 @@ import {moveItemInArray} from "@angular/cdk/drag-drop";
 import {RepairType} from "@ngxs/store/operators/utils";
 import {BrowserViewEntity} from "../../../entitys/browser-view.entity";
 import {ColorUtil} from "../../../utils/color.util";
-import {combineAll, flatMap} from "rxjs/internal/operators";
 import {BrowserWebviewController} from "../../../components/broswer-webview";
 import {environment} from "../../../../environments/environment";
 
@@ -75,6 +78,9 @@ export class BrowserState {
     const newBrowser: BrowserViewEntity = {
       id: newTab.id,
       url: newTab.url,
+      options: {
+        nodeApiEnable: newTab.url.startsWith(environment.rendererUrl)
+      }
     }
     return of(ctx.setState(
       patch(

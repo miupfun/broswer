@@ -8,6 +8,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
+import {A11yModule} from "@angular/cdk/a11y";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {MatButtonModule} from "@angular/material/button";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    A11yModule,
     RouterModule.forChild([{
       path: '',
       component: NewTabComponent

@@ -1,6 +1,7 @@
 <mp-browser-webview
   [id]="browser?.id"
   [src]="browser?.url"
+  [nodeApiEnable]="browser?.options?.nodeApiEnable"
   (didChangeThemeColor)="themeChange($event)"
   (pageTitleUpdate)="titleChange($event)"
   (pageFaviconUpdated)="iconChange($event)"

@@ -20,6 +20,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
 import {MpBrowserWebviewModule} from "../../components/broswer-webview";
 import {TabUrlEditComponent} from './components/tab-url-edit/tab-url-edit.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent],
@@ -32,6 +33,7 @@ import {TabUrlEditComponent} from './components/tab-url-edit/tab-url-edit.compon
     MpNavigationBarModule,
     MpBrowserWebviewModule,
     MatAutocompleteModule,
+    MatSidenavModule,
     NgxsModule.forFeature([BrowserState]),
     RouterModule.forChild([
       {

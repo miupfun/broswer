@@ -25,6 +25,7 @@ app.on('ready', () => {
     w.show();
   });
 });
+
 app.on('window-all-closed', () => {
   app.quit()
   app.exit()

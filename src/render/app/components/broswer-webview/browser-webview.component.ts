@@ -29,7 +29,7 @@ import {
   templateUrl: './browser-webview.component.html',
   styleUrls: ['./browser-webview.component.scss'],
 })
-export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('webview', {static: true, read: ElementRef})
   private webview!: ElementRef<WebviewTag>;
@@ -40,8 +40,8 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges
   @Input()
   id: any;
 
-
-  nodeApiEnable: boolean = true
+  @Input()
+  nodeApiEnable: boolean | undefined = false
 
   @Output()
   private loadCommit: EventEmitter<LoadCommitEvent> = new EventEmitter<LoadCommitEvent>()
@@ -116,14 +116,8 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnChanges
     this.instance.addEventListener('plugin-crashed', (e) => this.pluginCrashed.emit(e))
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.src && changes.src.currentValue) {
-      this.nodeApiEnable = changes.src.currentValue.startsWith(environment.rendererUrl)
-    }
-  }
 
   ngOnDestroy(): void {
-
 
   }
 
