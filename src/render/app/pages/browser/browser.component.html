@@ -1,43 +1,46 @@
-<div class="mp-browser-header full-width" *ngIf="$browserState |async as browserModel">
-  <mp-navigation-bar
-    mpWinNoSelect
-    [style]="{'--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,'--navigationbar-color':browserModel.navigationBarConfig.foregroundColor}">
-    <div class="full-page" *ngIf="browserModel.editTabId">
-      <mp-tab-url-edit></mp-tab-url-edit>
-    </div>
-    <div class="full-page" *ngIf="!browserModel.editTabId" fxLayout="row">
-      <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
-        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                (click)="drawer.toggle()">
-          <i class="iconfont icon-menu"></i>
-        </button>
-        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                (click)="historyGo(-1)">
-          <i class="iconfont icon-left"></i>
-        </button>
+<div class="full-page" *ngIf="$browserState |async as browserModel"
+     [style]="{'--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,'--navigationbar-color':browserModel.navigationBarConfig.foregroundColor}">
+  <div class="mp-browser-header full-width"
+  >
+    <mp-navigation-bar mpWinNoSelect>
+      <div class="full-page" *ngIf="browserModel.editTabId">
+        <mp-tab-url-edit></mp-tab-url-edit>
+      </div>
+      <div class="full-page" *ngIf="!browserModel.editTabId" fxLayout="row">
+        <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
+                  (click)="drawer.toggle()">
+            <i class="iconfont icon-menu"></i>
+          </button>
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
+                  (click)="historyGo(-1)">
+            <i class="iconfont icon-left"></i>
+          </button>
 
-        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                (click)="historyGo(1)">
-          <i class="iconfont icon-right"></i>
-        </button>
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
+                  (click)="historyGo(1)">
+            <i class="iconfont icon-right"></i>
+          </button>
+        </div>
+        <div class="" fxFlex="1 1" style="overflow: hidden">
+          <mp-browser-tab></mp-browser-tab>
+        </div>
+        <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
+            <i class="iconfont icon-add"></i>
+          </button>
+        </div>
       </div>
-      <div class="" fxFlex="1 1" style="overflow: hidden">
-        <mp-browser-tab></mp-browser-tab>
+    </mp-navigation-bar>
+  </div>
+  <mat-drawer-container class="mp-browser-body" autosize [hasBackdrop]="false">
+    <mat-drawer #drawer class="example-sidenav" mode="push">
+      <div class="full-page mat-drawer-inner-container">
+        <button (click)="toggleDevTool()" mat-button>开发者</button>
       </div>
-      <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
-        <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
-          <i class="iconfont icon-add"></i>
-        </button>
-      </div>
-    </div>
-  </mp-navigation-bar>
+    </mat-drawer>
+    <mat-drawer-content class="full-page">
+      <mp-browser-content></mp-browser-content>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>
-
-<mat-drawer-container class="mp-browser-body" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="push">
-    <p>Auto-resizing sidenav</p>
-  </mat-drawer>
-  <mat-drawer-content class="full-page">
-    <mp-browser-content></mp-browser-content>
-  </mat-drawer-content>
-</mat-drawer-container>

@@ -1,5 +1,6 @@
 import {app, BrowserWindow} from 'electron';
 import {is} from 'electron-util';
+import {RouteUtil} from "../share/utils/route.util";
 
 app.on('ready', () => {
   const w = new BrowserWindow({
@@ -18,10 +19,10 @@ app.on('ready', () => {
       nodeIntegrationInSubFrames: false,
       nodeIntegrationInWorker: true,
       contextIsolation: false,
-      webviewTag: true
+      webviewTag: true,
     }
   });
-  w.loadURL(`${process.env.$RENDER}#/browser`).then(() => {
+  w.loadURL(RouteUtil.getPageUrl('browser')).then(() => {
     w.show();
   });
 });

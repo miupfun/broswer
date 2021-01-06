@@ -3,6 +3,7 @@ import {Store} from "@ngxs/store";
 import {BrowserActionsCreateTab, BrowserActionsSelectTab} from "../../pages/browser/store/browser.actions";
 import {BROWSER_STATE} from "../../pages/browser/store/browser.state";
 import Process = NodeJS.Process;
+import {RouteUtil} from "../../../../share/utils/route.util";
 
 @Component({
   selector: 'mp-navigation-bar',
@@ -19,16 +20,9 @@ export class NavigationBarComponent implements OnInit {
 
   process: Process = process
 
-  constructor(private store: Store) {
+  constructor() {
   }
 
   ngOnInit(): void {
   }
-
-  addTab() {
-    const length = this.store.selectSnapshot(BROWSER_STATE).tabs.length
-    this.store.dispatch(new BrowserActionsCreateTab()).subscribe(() => {
-    })
-  }
-
 }

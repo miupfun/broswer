@@ -3,21 +3,21 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
-  OnChanges,
+  Input, OnChanges,
   OnDestroy,
   OnInit,
   Output,
-  Renderer2,
-  SimpleChanges,
+  Renderer2, SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {environment} from "../../../environments/environment";
 import {BrowserWebviewController} from "./browser-webview.controller";
 import {
-  ConsoleMessageEvent, DidChangeThemeColorEvent,
+  ConsoleMessageEvent,
+  DidChangeThemeColorEvent,
   DidFailLoadEvent,
-  DidFrameFinishLoadEvent, DidNavigateEvent, DidNavigateInPageEvent,
+  DidFrameFinishLoadEvent,
+  DidNavigateEvent,
+  DidNavigateInPageEvent,
   LoadCommitEvent,
   PageFaviconUpdatedEvent,
   PageTitleUpdatedEvent,
@@ -29,7 +29,7 @@ import {
   templateUrl: './browser-webview.component.html',
   styleUrls: ['./browser-webview.component.scss'],
 })
-export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
   @ViewChild('webview', {static: true, read: ElementRef})
   private webview!: ElementRef<WebviewTag>;
@@ -41,7 +41,11 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy
   id: any;
 
   @Input()
-  nodeApiEnable: boolean | undefined = false
+  nodeApiEnable: boolean | undefined
+
+  public get instance() {
+    return this.webview.nativeElement
+  }
 
   @Output()
   private loadCommit: EventEmitter<LoadCommitEvent> = new EventEmitter<LoadCommitEvent>()
@@ -85,13 +89,12 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy
   private pluginCrashed: EventEmitter<Event> = new EventEmitter<Event>()
 
 
-  constructor(private renderer2: Renderer2, private browserWebviewController: BrowserWebviewController) {
+  constructor(private browserWebviewController: BrowserWebviewController) {
   }
 
   ngOnInit(): void {
     this.browserWebviewController.register(this)
   }
-
 
   ngAfterViewInit(): void {
     this.instance.addEventListener('load-commit', (e) => this.loadCommit.emit(e))
@@ -116,12 +119,10 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy
     this.instance.addEventListener('plugin-crashed', (e) => this.pluginCrashed.emit(e))
   }
 
-
   ngOnDestroy(): void {
-
+    this.browserWebviewController.unRegister(this)
   }
 
-  public get instance() {
-    return this.webview.nativeElement
+  ngOnChanges(changes: SimpleChanges): void {
   }
 }

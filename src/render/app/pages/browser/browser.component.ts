@@ -3,8 +3,9 @@ import {Select, Store} from "@ngxs/store";
 import {BROWSER_STATE, BrowserState} from "./store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "./store/browser.model";
-import {BrowserActionsCreateTab, BrowserActionsHistoryGo} from "./store/browser.actions";
+import {BrowserActionsCreateTab, BrowserActionsHistoryGo, BrowserActionsToggleDevTool} from "./store/browser.actions";
 import {BrowserTabEntity} from "../../entitys/browser-tab.entity";
+import {RouteUtil} from "../../../../share/utils/route.util";
 
 @Component({
   selector: 'mp-browser',
@@ -32,10 +33,18 @@ export class BrowserComponent implements OnInit {
   }
 
   createNewTab() {
-    this.store.dispatch(new BrowserActionsCreateTab())
+    this.store.dispatch(new BrowserActionsCreateTab({
+      url: RouteUtil.getPageUrl('new_tab'),
+      defaultIcon: 'icon-tab'
+    })).subscribe(() => {
+    })
   }
 
   historyGo(bf: -1 | 1 | 0) {
     this.store.dispatch(new BrowserActionsHistoryGo(bf))
+  }
+  
+  toggleDevTool(){
+    this.store.dispatch(new BrowserActionsToggleDevTool())
   }
 }

@@ -13,12 +13,11 @@ export class NewTabComponent implements OnInit, AfterViewInit {
 
   value: string = ''
 
-  constructor(private title: Title, @Inject(DOCUMENT) private document: Document) {
+  constructor(private title: Title) {
   }
 
   ngOnInit(): void {
     this.title.setTitle('新的标签页')
-    this.document.getElementById('favicon')?.setAttribute('href', '/assets/favicon/tab.svg')
   }
 
   submit() {

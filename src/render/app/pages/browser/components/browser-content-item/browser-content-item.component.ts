@@ -25,7 +25,6 @@ export class BrowserContentItemComponent implements OnInit {
   @ViewChild(BrowserWebviewComponent)
   webview: BrowserWebviewComponent | undefined;
 
-
   constructor(private store: Store) {
   }
 
@@ -37,7 +36,6 @@ export class BrowserContentItemComponent implements OnInit {
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
       theme: e.themeColor
     }))
-
   }
 
   titleChange(e: PageTitleUpdatedEvent) {
@@ -57,7 +55,7 @@ export class BrowserContentItemComponent implements OnInit {
 
   createTab(winOption: Event | any) {
     if (!this.browser) return
-    this.store.dispatch(new BrowserActionsCreateTab(this.browser.id, winOption.url)).subscribe(() => {
+    this.store.dispatch(new BrowserActionsCreateTab({url: winOption.url}, this.browser.id,)).subscribe(() => {
     })
   }
 
@@ -80,7 +78,7 @@ export class BrowserContentItemComponent implements OnInit {
     }))
   }
 
-  didStopLoading($event:Event){
+  didStopLoading($event: Event) {
     console.log('didStopLoading')
   }
 

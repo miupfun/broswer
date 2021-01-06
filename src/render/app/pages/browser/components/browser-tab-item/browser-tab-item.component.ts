@@ -37,7 +37,12 @@ export class BrowserTabItemComponent implements OnInit {
   }
 
   editTabUrl() {
-    if (this.tab)
-      this.store.dispatch(new BrowserActionsEditUrl(this.tab.id))
+    if (!this.tab) {
+      return
+    }
+    if (this.tab.options.tabUrlReadOnly) {
+      return;
+    }
+    this.store.dispatch(new BrowserActionsEditUrl(this.tab.id))
   }
 }

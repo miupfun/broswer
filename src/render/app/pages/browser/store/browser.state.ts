@@ -1,4 +1,4 @@
-import {Action, Selector, State, StateContext, StateToken} from "@ngxs/store";
+import {Action, createSelector, Selector, State, StateContext, StateToken} from "@ngxs/store";
 import {BrowserModel} from "./browser.model";
 import {
   BrowserActionsCloseTab,
@@ -8,7 +8,7 @@ import {
   BrowserActionsFinishEditUrl,
   BrowserActionsHistoryGo,
   BrowserActionsSelectTab,
-  BrowserActionsSetTabTheme,
+  BrowserActionsSetTabTheme, BrowserActionsToggleDevTool,
   BrowserActionsUpdateTab
 } from "./browser.actions";
 import {of} from "rxjs";
@@ -21,7 +21,7 @@ import {RepairType} from "@ngxs/store/operators/utils";
 import {BrowserViewEntity} from "../../../entitys/browser-view.entity";
 import {ColorUtil} from "../../../utils/color.util";
 import {BrowserWebviewController} from "../../../components/broswer-webview";
-import {environment} from "../../../../environments/environment";
+import {RouteUtil} from "../../../../../share/utils/route.util";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -67,11 +67,14 @@ export class BrowserState {
       createIndex: lastTabIndex + 1,
       createById: payload.createTabId || null,
       title: '',
-      url: payload.url || `${environment.rendererUrl}/#/new_tab`,
+      url: payload.tabInfo.url || '',
       theme: '',
+      defaultIcon: payload.tabInfo.defaultIcon || '',
       icon: '',
       history: [],
-      options: {},
+      options: {
+        tabUrlReadOnly: RouteUtil.isLocalUrl(payload.tabInfo.url || ''),
+      },
       canGoBack: false,
       canGoForward: false
     }
@@ -79,7 +82,7 @@ export class BrowserState {
       id: newTab.id,
       url: newTab.url,
       options: {
-        nodeApiEnable: newTab.url.startsWith(environment.rendererUrl)
+        nodeApiEnable: RouteUtil.isLocalUrl(payload.tabInfo.url || ''),
       }
     }
     return of(ctx.setState(
@@ -111,6 +114,11 @@ export class BrowserState {
         const nextTab = ctx.getState().tabs[nextSelectIndex]
 
         ctx.dispatch(new BrowserActionsSelectTab(nextTab?.id))
+      }
+      return data
+    }).pipe((data) => {
+      if (ctx.getState().tabs.length <= 0) {
+        window.close()
       }
       return data
     })
@@ -201,6 +209,11 @@ export class BrowserState {
     }))
   }
 
+  @Action(BrowserActionsToggleDevTool)
+  toggleDevTool(ctx: StateContext<BrowserModel>) {
+    this.browserWebviewController.toggleDevTool(ctx.getState().currentTabId)
+    return of(ctx.getState())
+  }
 
   @Selector()
   static currentTab(state: BrowserModel) {
@@ -212,4 +225,15 @@ export class BrowserState {
     return state.tabs.find(t => t.id === state.editTabId)
   }
 
+  static selectTab(id: string) {
+    return createSelector([BrowserState], (state: BrowserModel) => {
+      return state.tabs.find(t => t.id === id)
+    })
+  }
+
+  static selectWebview(id: string) {
+    return createSelector([BrowserState], (state: BrowserModel) => {
+      return state.browserViews.find(t => t.id === id)
+    })
+  }
 }

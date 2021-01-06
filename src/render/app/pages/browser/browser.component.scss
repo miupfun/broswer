@@ -23,4 +23,10 @@
   overflow: auto;
 }
 
+.example-sidenav {
+  .mat-drawer-inner-container {
+    background-color: var(--navigationbar-bg) !important;
+    color: var(--navigationbar-color) !important;
+  }
+}
 

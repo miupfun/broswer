@@ -1,14 +1,15 @@
 <div class="browser-tab-item full-page"
      mpWinDrag="false"
      fxLayout="row"
+     *ngIf="tab"
      (click)="selectTab()"
      (dblclick)="editTabUrl()"
      matRipple
      [class.active]="active">
   <div class="tab-icon" fxFlex="20px" fxFlexAlign="center">
-    <img *ngIf="tab?.icon;else emptyIcon" [src]="tab?.icon">
+    <i class="iconfont" [class]="tab.defaultIcon" *ngIf="tab.defaultIcon;else emptyIcon"></i>
     <ng-template #emptyIcon>
-      <i class="iconfont icon-empty"></i>
+      <img [src]="tab?.icon">
     </ng-template>
   </div>
   <div class="tab-body" fxFlex="1 1" fxFlexAlign="center">

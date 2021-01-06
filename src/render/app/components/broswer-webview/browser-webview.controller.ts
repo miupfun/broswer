@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BrowserWebviewComponent} from "./browser-webview.component";
 import {LoadURLOptions} from "electron";
-import {URL} from 'url'
 import {UrlUtil} from "../../utils/url.util";
 
 @Injectable({
@@ -18,6 +17,10 @@ export class BrowserWebviewController {
     if (!this.viewViews.includes(component)) {
       this.viewViews.push(component)
     }
+  }
+
+  unRegister(component: BrowserWebviewComponent) {
+    this.viewViews = this.viewViews.filter(com => com !== component)
   }
 
   historyGo(id: any, bf: 0 | 1 | -1) {
@@ -45,5 +48,17 @@ export class BrowserWebviewController {
     }
     const urlParse = UrlUtil.format(url)
     webview.instance.executeJavaScript(`location.href="${urlParse}"`).then()
+  }
+
+  toggleDevTool(id: any) {
+    const webview = this.viewViews.find(c => c.id === id)
+    if (!webview) {
+      return
+    }
+    if (webview.instance.isDevToolsOpened()) {
+      webview.instance.closeDevTools()
+    } else {
+      webview.instance.openDevTools()
+    }
   }
 }

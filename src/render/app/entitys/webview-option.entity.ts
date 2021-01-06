@@ -1,3 +1,3 @@
-export class WebviewOptionEntity{
-  
+export class WebviewOptionEntity {
+  tabUrlReadOnly: boolean = false
 }

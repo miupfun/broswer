@@ -7,9 +7,10 @@ export class BrowserTabEntity {
   title: string = ''
   url: string = ''
   theme: string = ''
+  defaultIcon: string = ''
   icon: string = ''
   history: string[] = []
-  options: WebviewOptionEntity | undefined
+  options: WebviewOptionEntity =new WebviewOptionEntity()
   canGoBack: boolean = false
   canGoForward: boolean = false
 }
