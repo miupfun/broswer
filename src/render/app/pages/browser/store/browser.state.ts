@@ -1,4 +1,4 @@
-import {Action, createSelector, Selector, State, StateContext, StateToken} from "@ngxs/store";
+import {Action, createSelector, Selector, State, StateContext, StateToken, Store} from "@ngxs/store";
 import {BrowserModel} from "./browser.model";
 import {
   BrowserActionsCloseTab,
@@ -13,12 +13,12 @@ import {
 } from "./browser.actions";
 import {of} from "rxjs";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
-import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
+import {BrowserTabEntity} from "../../../../../share/entitys/browser-tab.entity";
 import {Injectable} from "@angular/core";
 import * as UUID from 'uuid'
 import {moveItemInArray} from "@angular/cdk/drag-drop";
 import {RepairType} from "@ngxs/store/operators/utils";
-import {BrowserViewEntity} from "../../../entitys/browser-view.entity";
+import {BrowserViewEntity} from "../../../../../share/entitys/browser-view.entity";
 import {ColorUtil} from "../../../utils/color.util";
 import {BrowserWebviewController} from "../../../components/broswer-webview";
 import {RouteUtil} from "../../../../../share/utils/route.util";
@@ -27,11 +27,14 @@ export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
 @State({
   name: BROWSER_STATE,
-  defaults: new BrowserModel()
+  defaults: localStorage.getItem(BROWSER_STATE.getName()) ?JSON.parse(localStorage.getItem(BROWSER_STATE.getName())||'') : new BrowserModel()
 })
 @Injectable({providedIn: "root"})
 export class BrowserState {
-  constructor(private browserWebviewController: BrowserWebviewController) {
+  constructor(private store: Store, private browserWebviewController: BrowserWebviewController) {
+    this.store.select(BrowserState).subscribe((v) => {
+      localStorage.setItem(BROWSER_STATE.getName(), JSON.stringify(v))
+    })
   }
 
   @Action(BrowserActionsSelectTab)

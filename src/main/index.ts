@@ -9,8 +9,8 @@ app.on('ready', () => {
     titleBarStyle: "hiddenInset",
     width: 1280,
     height: 720,
-    minWidth: 1280,
-    minHeight: 720,
+    minWidth: 480,
+    minHeight: 480,
     center: true,
     backgroundColor: '#fff',
     webPreferences: {
@@ -26,7 +26,6 @@ app.on('ready', () => {
     w.show();
   });
 });
-
 app.on('window-all-closed', () => {
   app.quit()
   app.exit()

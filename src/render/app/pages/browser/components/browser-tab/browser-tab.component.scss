@@ -1,15 +1,15 @@
 .browser-tab-container {
   overflow-x: hidden;
-  transition: all 300ms ease-in;
 
   .browser-tab-item-container {
     min-width: 40px;
     overflow: hidden;
     color: var(--navigationbar-color);
-    background: var(--navigationbar-bg);
+    background-color: var(--navigationbar-bg);
+    transition: all 300ms ease-in;
 
     &:not(:last-child) {
-      border-right: 1px solid var(--tab-active-bg);
+      border-right: 1.5px solid var(--browser-tab-active-bg);
     }
   }
 }
@@ -20,7 +20,6 @@
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
   0 8px 10px 1px rgba(0, 0, 0, 0.14),
   0 3px 14px 2px rgba(0, 0, 0, 0.12);
-
 }
 
 .cdk-drag-placeholder {

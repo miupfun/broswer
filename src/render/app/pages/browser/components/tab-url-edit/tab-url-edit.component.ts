@@ -3,7 +3,7 @@ import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {Select, Store} from "@ngxs/store";
-import {BrowserTabEntity} from "../../../../entitys/browser-tab.entity";
+import {BrowserTabEntity} from "../../../../../../share/entitys/browser-tab.entity";
 import {BrowserState} from "../../store/browser.state";
 import {BrowserActionsEditUrl, BrowserActionsFinishEditUrl} from "../../store/browser.actions";
 

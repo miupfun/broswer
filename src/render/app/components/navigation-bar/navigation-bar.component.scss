@@ -1,15 +1,14 @@
-:root {
-  --navigationbar-bg: var(--background-app-bar);
-  --navigationbar-color: var(--foreground-base);
+:host{
+  display: block;
+  width: 100%;
+  height: 100%;
 }
-
-
 .mp-navigation-bar-container {
   height: 36px;
   background-color: var(--navigationbar-bg);
   color: var(--navigationbar-color);
   transition: all 300ms ease-in;
-  padding: 0 8px;
+  padding-left: 8px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 
   .mp-navigation-bar-tab-container {

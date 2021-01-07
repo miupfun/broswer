@@ -1,8 +1,12 @@
 <div class="full-page" *ngIf="$browserState |async as browserModel"
-     [style]="{'--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,'--navigationbar-color':browserModel.navigationBarConfig.foregroundColor}">
+     [style]="{
+     '--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,
+     '--navigationbar-color':browserModel.navigationBarConfig.foregroundColor
+     }"
+>
   <div class="mp-browser-header full-width"
   >
-    <mp-navigation-bar mpWinNoSelect>
+    <mp-navigation-bar>
       <div class="full-page" *ngIf="browserModel.editTabId">
         <mp-tab-url-edit></mp-tab-url-edit>
       </div>

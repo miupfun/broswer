@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
 import {Select, Store} from "@ngxs/store";
 import {BROWSER_STATE, BrowserState} from "./store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "./store/browser.model";
 import {BrowserActionsCreateTab, BrowserActionsHistoryGo, BrowserActionsToggleDevTool} from "./store/browser.actions";
-import {BrowserTabEntity} from "../../entitys/browser-tab.entity";
-import {RouteUtil} from "../../../../share/utils/route.util";
+import {RouteUtil, BrowserTabEntity} from "../../../../share";
 
 @Component({
   selector: 'mp-browser',
@@ -24,12 +23,16 @@ export class BrowserComponent implements OnInit {
   currentTab: BrowserTabEntity | undefined;
 
 
-  constructor(private store: Store) {
-    this.$currentTab?.subscribe(s => this.currentTab = s)
+  constructor(private store: Store,
+              private elementRef: ElementRef,
+              private renderer2: Renderer2) {
+    this.$currentTab?.subscribe(currentTab => {
+      this.currentTab = currentTab
+    })
   }
 
   ngOnInit(): void {
-    this.createNewTab()
+    // this.createNewTab()
   }
 
   createNewTab() {
@@ -43,8 +46,8 @@ export class BrowserComponent implements OnInit {
   historyGo(bf: -1 | 1 | 0) {
     this.store.dispatch(new BrowserActionsHistoryGo(bf))
   }
-  
-  toggleDevTool(){
+
+  toggleDevTool() {
     this.store.dispatch(new BrowserActionsToggleDevTool())
   }
 }

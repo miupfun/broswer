@@ -5,7 +5,7 @@
   position: relative;
 
   &.active {
-    background-color: var(--tab-active-bg);
+    background-color: var( --browser-tab-active-bg);
    }
 
   .tab-icon {

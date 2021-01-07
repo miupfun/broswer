@@ -12,5 +12,4 @@ export const APP_STATE = new StateToken<AppModel>('app')
   providedIn: "root"
 })
 export class AppState {
-
 }

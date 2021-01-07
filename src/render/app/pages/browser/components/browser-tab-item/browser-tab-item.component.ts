@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BrowserTabEntity} from "../../../../entitys/browser-tab.entity";
+import {BrowserTabEntity} from "../../../../../../share/entitys/browser-tab.entity";
 import {Store} from "@ngxs/store";
 import {BrowserActionsCloseTab, BrowserActionsEditUrl} from "../../store/browser.actions";
 

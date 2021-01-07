@@ -3,5 +3,10 @@
 
 @include miup-theme();
 :root {
-  --tab-active-bg:rgba(var(--foreground-base-rgb), 0.3)
+  --navigationbar-bg: var(--background-app-bar);
+  --navigationbar-color: var(--foreground-base);
+  --navigationbar-active-bg: rgba(var(--foreground-base-rgb), 0.2);
+  --navigationbar-active-color: var(--navigationbar-color);
+  --browser-tab-active-bg: rgba(var(--foreground-base-rgb), 0.3);
+  --browser-view-default-bg: #f4f6f8;
 }

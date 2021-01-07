@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {BrowserActionsCloseTab, BrowserActionsCreateTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
-import {BrowserViewEntity} from "../../../../entitys/browser-view.entity";
+import {BrowserViewEntity} from "../../../../../../share/entitys/browser-view.entity";
 import {
   DidChangeThemeColorEvent,
   DidFrameFinishLoadEvent,

@@ -1,4 +1,4 @@
-import {BrowserTabEntity} from "../../../entitys/browser-tab.entity";
+import {BrowserTabEntity} from "../../../../../share/entitys/browser-tab.entity";
 
 export class BrowserActionsCreateTab {
   static readonly type = '[browser] BrowserActionsCreateTab';
