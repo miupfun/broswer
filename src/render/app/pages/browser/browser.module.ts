@@ -1,4 +1,4 @@
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BrowserComponent} from './browser.component';
 import {RouterModule} from "@angular/router";
@@ -27,6 +27,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
   imports: [
     CommonModule,
     FlexLayoutModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRippleModule,
+    ReactiveFormsModule,
     DragDropModule,
     MpWindowDragModule,
     MpWindowSelectModule,
@@ -41,11 +46,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
         component: BrowserComponent
       }
     ]),
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatRippleModule,
-    ReactiveFormsModule,
+
   ],
 })
 export class BrowserModule {
