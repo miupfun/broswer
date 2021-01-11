@@ -1,18 +1,16 @@
 import {MpAppOn, MpInjectable} from "../../core";
-import {BrowserWindow} from "../window/browser.window";
+import {BrowserWindowManager} from "../window/browser.window";
 
 @MpInjectable()
 export class MainController {
 
-  constructor(private browserWindow: BrowserWindow) {
+  constructor(private browserWindowManager: BrowserWindowManager) {
   }
 
   @MpAppOn('ready')
-  appReady() {
+  async appReady() {
     console.log('app ready')
-    this.browserWindow.once('ready-to-show', () => {
-      console.log('ready to show')
-      this.browserWindow.show()
-    })
+    const window = await this.browserWindowManager.init()
+    window.show()
   }
 }

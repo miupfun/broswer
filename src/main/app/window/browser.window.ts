@@ -1,15 +1,21 @@
-import {MpBrowserWindow, MpInjectable} from "../../core";
 import {RouteUtil} from "../../../share";
+import {MpInjectable, MpWindowManager} from "../../core";
 
 @MpInjectable()
-export class BrowserWindow extends MpBrowserWindow {
+export class BrowserWindowManager extends MpWindowManager {
+
 
   constructor() {
-    super({
+    super();
+  }
+
+  init() {
+    return super.init({
       show: false,
       titleBarStyle: "hiddenInset",
       width: 1280,
       height: 720,
+      frame: false,
       minWidth: 480,
       minHeight: 480,
       center: true,
@@ -23,8 +29,7 @@ export class BrowserWindow extends MpBrowserWindow {
         webviewTag: true,
       },
       url: RouteUtil.getPageUrl('browser'),
-    });
+    })
   }
-
 
 }

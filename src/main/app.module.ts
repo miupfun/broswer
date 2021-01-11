@@ -1,11 +1,11 @@
 import {MpModule} from "./core";
 import {MainController} from "./app/controller/main.controller";
-import {BrowserWindow} from "./app/window/browser.window";
+import {BrowserWindowManager} from "./app/window/browser.window";
 
 @MpModule({
   components: [],
   controllers: [MainController],
-  views: [BrowserWindow]
+  views: [BrowserWindowManager]
 })
 export class MainAppModule {
 

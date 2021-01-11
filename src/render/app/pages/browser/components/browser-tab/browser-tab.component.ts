@@ -5,7 +5,7 @@ import {BrowserActionsCloseTab, BrowserActionsDropTab, BrowserActionsSelectTab} 
 import {Observable} from "rxjs";
 import {BROWSER_STATE} from "../../store/browser.state";
 import {CdkDragDrop} from "@angular/cdk/drag-drop";
-import {BrowserTabEntity} from "../../../../../../share/entitys/browser-tab.entity";
+import {BrowserTabEntity} from "../../../../../../share";
 
 @Component({
   selector: 'mp-browser-tab',

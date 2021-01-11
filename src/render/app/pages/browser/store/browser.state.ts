@@ -27,13 +27,12 @@ export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
 @State({
   name: BROWSER_STATE,
-  defaults: localStorage.getItem(BROWSER_STATE.getName()) ?JSON.parse(localStorage.getItem(BROWSER_STATE.getName())||'') : new BrowserModel()
+  defaults: new BrowserModel()
 })
 @Injectable({providedIn: "root"})
 export class BrowserState {
   constructor(private store: Store, private browserWebviewController: BrowserWebviewController) {
     this.store.select(BrowserState).subscribe((v) => {
-      localStorage.setItem(BROWSER_STATE.getName(), JSON.stringify(v))
     })
   }
 

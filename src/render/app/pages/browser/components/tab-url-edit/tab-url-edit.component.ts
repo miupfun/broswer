@@ -18,9 +18,11 @@ export class TabUrlEditComponent implements OnInit, AfterViewInit {
   @ViewChild("inputElement", {static: true})
   inputElement: ElementRef | undefined;
 
+  editTab: BrowserTabEntity | undefined;
+
   constructor(private store: Store) {
-    const editTab = this.store.selectSnapshot(BrowserState.editTab)
-    this.control = new FormControl(editTab?.url);
+    this.editTab = this.store.selectSnapshot(BrowserState.editTab)
+    this.control = new FormControl(this.editTab?.url);
   }
 
   ngOnInit() {
