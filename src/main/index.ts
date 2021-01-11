@@ -45,7 +45,7 @@ import {bootstrap} from "./main";
 // app.on('window-all-closed', () => {
 //   app.quit()
 //   app.exit()
-// })
+// })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 // ipcMain.on('create-new-Tab', () => {
 //
 // })
