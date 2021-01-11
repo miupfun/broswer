@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {DOCUMENT} from "@angular/common";
 import {UrlUtil} from "../../utils/url.util";
-import * as Url from "url";
 
 @Component({
   selector: 'mp-new-tab',

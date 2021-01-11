@@ -8,6 +8,9 @@
   "private": true,
   "dependencies": {
     "electron-util": "^0.14.2",
+    "inversify": "^5.0.5",
+    "inversify-inject-decorators": "^3.1.0",
+    "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

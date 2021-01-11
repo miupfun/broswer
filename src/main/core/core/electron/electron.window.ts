@@ -1,19 +1,17 @@
 import {BrowserWindow, BrowserWindowConstructorOptions} from 'electron';
-import {WindowException} from './exceptions';
 
-export class MpWindowManager implements MpWindowManagerInterface {
+export class MpBrowserWindow extends BrowserWindow {
 
-  private windowInstance: BrowserWindow|undefined;
+  private windowInstance: BrowserWindow | undefined;
 
-  async init(config?: WindowInitConfig): Promise<BrowserWindow> {
-    this.windowInstance = new BrowserWindow(config);
+  constructor(config?: WindowInitConfig) {
+    super(config)
     if (config && config.url) {
-      await this.windowInstance.loadURL(config.url);
+      super.loadURL(config.url).then();
     }
-    return this.windowInstance
   }
 
-  get window(): BrowserWindow |undefined{
+  get window(): BrowserWindow | undefined {
     return this.windowInstance;
   }
 
@@ -27,47 +25,39 @@ export class MpWindowManager implements MpWindowManagerInterface {
   }
 
   public show() {
-    this.isDestroy();
-    this.instance.show();
+    if (this.isDestroy()) return;
+    this.window?.show();
   }
 
   public close() {
-    this.isDestroy();
-    this.instance.close();
+    if (this.isDestroy()) return;
+    this.window?.close();
   }
 
   public hide() {
-    this.isDestroy();
-    this.instance.hide();
+    if (this.isDestroy()) return;
+    this.window?.hide();
   }
 
   public focus() {
-
-    this.instance.focus();
+    if (this.isDestroy()) return;
+    this.window?.focus();
   }
 
   public blur() {
-    this.isDestroy();
-    this.instance.blur();
+    if (this.isDestroy()) return;
+    this.window?.blur();
   }
 
   public isDestroy(): boolean {
-    if (!this.instance) {
+    if (!this.window) {
       return false;
     }
-    return this._instance.isDestroyed();
+    return this.window.isDestroyed();
   }
-  
+
 }
 
-export interface MpWindowManagerInterface {
-
-  init(config?: WindowInitConfig): void
-
-  destroy(): void
-
-  isDestroy(): boolean
-}
 
 export interface WindowInitConfig extends BrowserWindowConstructorOptions {
   url: string

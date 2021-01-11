@@ -1,7 +1,7 @@
 import {Container, interfaces} from 'inversify';
 import 'reflect-metadata';
 
-export class MiupApplication {
+export class MpApplication {
     public static container = new Container({
         skipBaseClassChecks: true,
         defaultScope: 'Singleton',
@@ -12,16 +12,16 @@ export class MiupApplication {
     }
 
     get<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T {
-        return MiupApplication.container.get(serviceIdentifier);
+        return MpApplication.container.get(serviceIdentifier);
     }
 
     start() {
     }
 }
 
-export class MiupApplicationFactory {
-    static create(module: any): MiupApplication {
-        return new MiupApplication();
+export class MpApplicationFactory {
+    static create(module: any): MpApplication {
+        return new MpApplication();
     }
 }
 
