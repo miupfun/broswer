@@ -5,26 +5,15 @@
   position: relative;
 
   &.active {
-    background-color: var( --browser-tab-active-bg);
-   }
-
-  .tab-icon {
-    width: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    img {
-      height: 18px;
-      border-radius: 4px;
-    }
+    background-color: var(--browser-tab-active-bg);
   }
-
   .tab-body {
     padding-left: 5px;
-    overflow: hidden;
+    overflow-y: visible;
+    overflow-x: hidden;
     font-size: 14px;
     white-space: nowrap;
+    line-height: 18px;
   }
 
   .tab-right-menu {

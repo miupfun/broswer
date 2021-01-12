@@ -10,7 +10,8 @@ export class BrowserTabEntity {
   defaultIcon: string = ''
   icon: string = ''
   history: string[] = []
-  options: WebviewOptionEntity =new WebviewOptionEntity()
+  options: WebviewOptionEntity = new WebviewOptionEntity()
   canGoBack: boolean = false
   canGoForward: boolean = false
+  loading: boolean = false
 }

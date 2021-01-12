@@ -4,7 +4,7 @@ import {BROWSER_STATE, BrowserState} from "./store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserModel} from "./store/browser.model";
 import {BrowserActionsCreateTab, BrowserActionsHistoryGo, BrowserActionsToggleDevTool} from "./store/browser.actions";
-import {RouteUtil, BrowserTabEntity} from "../../../../share";
+import {BrowserTabEntity, RouteUtil} from "../../../../share";
 
 @Component({
   selector: 'mp-browser',

@@ -1,9 +1,13 @@
-<form class="full-page mp-tab-url-edit-container" mpWinDrag="false">
-  <input class="mp-tab-url-edit-input"
+<form class="full-page mp-tab-url-edit-container" mpWinDrag="false" fxLayout="row" fxLayoutAlign="start center">
+  <div fxFlex="25px">
+    <mp-tab-icon [tab]="editTab"></mp-tab-icon>
+  </div>
+  <input fxFlex="1 1 100%" class="mp-tab-url-edit-input"
          type="text"
          #inputElement
          [formControl]="control"
          (blur)="closeEdit()"
          (focus)="onFocus($event)"
-         (keyup.enter)="submitEdit()">
+         (keyup.enter)="submitEdit()"
+  >
 </form>

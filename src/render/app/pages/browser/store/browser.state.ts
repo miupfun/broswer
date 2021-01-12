@@ -78,7 +78,8 @@ export class BrowserState {
         tabUrlReadOnly: RouteUtil.isLocalUrl(payload.tabInfo.url || ''),
       },
       canGoBack: false,
-      canGoForward: false
+      canGoForward: false,
+      loading:false
     }
     const newBrowser: BrowserViewEntity = {
       id: newTab.id,

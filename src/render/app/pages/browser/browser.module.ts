@@ -21,9 +21,12 @@ import {MatRippleModule} from "@angular/material/core";
 import {MpBrowserWebviewModule} from "../../components/broswer-webview";
 import {TabUrlEditComponent} from './components/tab-url-edit/tab-url-edit.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {TabIconComponent} from './components/tab-icon/tab-icon.component';
+import {UrlEncodeModule} from "../../pipes/url-encode/url-encode.module";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
-  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent],
+  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -31,6 +34,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatButtonModule,
     MatIconModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     DragDropModule,
     MpWindowDragModule,
@@ -46,6 +50,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
         component: BrowserComponent
       }
     ]),
+    UrlEncodeModule,
 
   ],
 })

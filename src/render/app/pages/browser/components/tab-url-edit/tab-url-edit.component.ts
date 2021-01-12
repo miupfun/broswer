@@ -1,11 +1,10 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
-import {Select, Store} from "@ngxs/store";
-import {BrowserTabEntity} from "../../../../../../share/entitys/browser-tab.entity";
+import {Store} from "@ngxs/store";
+import {BrowserTabEntity} from "../../../../../../share";
 import {BrowserState} from "../../store/browser.state";
-import {BrowserActionsEditUrl, BrowserActionsFinishEditUrl} from "../../store/browser.actions";
+import {BrowserActionsFinishEditUrl} from "../../store/browser.actions";
+import {UrlDecodePipe} from "../../../../pipes/url-encode/url-decode.pipe";
 
 @Component({
   selector: 'mp-tab-url-edit',
@@ -22,7 +21,7 @@ export class TabUrlEditComponent implements OnInit, AfterViewInit {
 
   constructor(private store: Store) {
     this.editTab = this.store.selectSnapshot(BrowserState.editTab)
-    this.control = new FormControl(this.editTab?.url);
+    this.control = new FormControl(new UrlDecodePipe().transform(this.editTab?.url||''));
   }
 
   ngOnInit() {

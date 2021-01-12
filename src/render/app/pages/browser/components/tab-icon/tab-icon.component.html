@@ -1,0 +1,7 @@
+<i class="iconfont" [class]="tab?.defaultIcon" *ngIf="tab?.defaultIcon;else emptyIcon"></i>
+<ng-template #emptyIcon>
+  <img [src]="tab?.icon">
+</ng-template>
+<div class="tab-loading">
+  <mat-spinner [strokeWidth]="2" [diameter]="24" mode="indeterminate" ></mat-spinner>
+</div>
