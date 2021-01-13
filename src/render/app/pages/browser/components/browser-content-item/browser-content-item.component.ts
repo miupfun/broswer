@@ -60,26 +60,29 @@ export class BrowserContentItemComponent implements OnInit {
   }
 
   didStartLoading($event: DidNavigateInPageEvent | any) {
-    console.log('didStartLoading')
     if (!this.browser) return
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
       url: $event.target.src,
-      title: $event.target.getTitle()
+      title: $event.target.getTitle(),
+      loading:true
     }))
   }
 
   didFinishLoad($event: DidFrameFinishLoadEvent | any) {
-    console.log('didFinishLoad')
     if (!this.browser) return
     this.webview?.instance.focus()
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
       url: $event.target.src,
-      title: $event.target.getTitle()
+      title: $event.target.getTitle(),
+      loading:false
     }))
   }
 
   didStopLoading($event: Event) {
-    console.log('didStopLoading')
+    if (!this.browser) return
+    this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
+      loading:false
+    }))
   }
 
   didNavigateInPage($event: DidNavigateInPageEvent | any) {

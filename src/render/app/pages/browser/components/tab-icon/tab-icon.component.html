@@ -2,6 +2,6 @@
 <ng-template #emptyIcon>
   <img [src]="tab?.icon">
 </ng-template>
-<div class="tab-loading">
-  <mat-spinner [strokeWidth]="2" [diameter]="24" mode="indeterminate" ></mat-spinner>
+<div class="tab-loading" *ngIf="tab?.loading">
+  <div class="sp-circle full-page"></div>
 </div>

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BrowserWebviewComponent} from "./browser-webview.component";
 import {LoadURLOptions} from "electron";
 import {UrlUtil} from "../../utils/url.util";
+import * as Url from "url";
 
 @Injectable({
   providedIn: 'any'
@@ -36,7 +37,7 @@ export class BrowserWebviewController {
         webview.instance.executeJavaScript(`history.back()`).then()
         break
       default:
-        webview.instance.reload()
+        webview.instance.reloadIgnoringCache()
         break
     }
   }
@@ -46,7 +47,12 @@ export class BrowserWebviewController {
     if (!webview) {
       return
     }
-    const urlParse = UrlUtil.format(url)
+    let urlParse = ''
+    if (UrlUtil.isUrl(url)) {
+      urlParse = UrlUtil.format(url)
+    } else {
+      urlParse = `https://www.baidu.com/s?cl=3&tn=baidutop10&fr=top1000&wd=${url}&rsv_idx=2&rsv_dl=fyb_n_homepage&hisfilter=1`
+    }
     webview.instance.executeJavaScript(`location.href="${urlParse}"`).then()
   }
 

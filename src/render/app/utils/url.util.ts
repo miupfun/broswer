@@ -6,4 +6,12 @@ export class UrlUtil {
     }
     return url
   }
+
+  public static isUrl(url: string) {
+    url = url.trimLeft()
+    if (url.indexOf('://') !== -1) {
+      return true
+    }
+    return false
+  }
 }
