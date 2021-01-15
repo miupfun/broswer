@@ -1,7 +1,6 @@
-<i class="iconfont" [class]="tab?.defaultIcon" *ngIf="tab?.defaultIcon;else emptyIcon"></i>
-<ng-template #emptyIcon>
-  <img [src]="tab?.icon">
-</ng-template>
+<i *ngIf="tab?.defaultIcon" class="iconfont" [class]="tab?.defaultIcon"></i>
+<img *ngIf="!tab?.defaultIcon && tab?.icon" [src]="tab?.icon">
+<i *ngIf="!tab?.defaultIcon&&!tab?.icon" class="iconfont icon-empty"></i>
 <div class="tab-loading" *ngIf="tab?.loading">
   <div class="sp-circle full-page"></div>
 </div>

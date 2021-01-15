@@ -32,7 +32,7 @@ export class BrowserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.createNewTab()
+    this.createNewTab()
   }
 
   createNewTab() {
@@ -50,4 +50,9 @@ export class BrowserComponent implements OnInit {
   toggleDevTool() {
     this.store.dispatch(new BrowserActionsToggleDevTool())
   }
+
+  openChange(e: boolean) {
+    console.log(e)
+  }
+
 }

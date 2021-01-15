@@ -14,19 +14,7 @@
         <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
           <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
                   (click)="drawer.toggle()">
-            <i class="iconfont icon-menu"></i>
-          </button>
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                  (click)="historyGo(-1)">
-            <i class="iconfont icon-left"></i>
-          </button>
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                  (click)="historyGo(0)">
-            <i class="iconfont icon-refresh"></i>
-          </button>
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                  (click)="historyGo(1)">
-            <i class="iconfont icon-right"></i>
+            <i class="iconfont icon-menu" [class.opened]="drawer.opened"></i>
           </button>
         </div>
         <div class="" fxFlex="1 1" style="overflow: hidden">
@@ -36,17 +24,27 @@
           <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
             <i class="iconfont icon-add"></i>
           </button>
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
+                  (click)="historyGo(-1)">
+            <i class="iconfont icon-left"></i>
+          </button>
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
+                  (click)="historyGo(1)">
+            <i class="iconfont icon-right"></i>
+          </button>
         </div>
       </div>
     </mp-navigation-bar>
   </div>
-  <mat-drawer-container class="mp-browser-body" autosize [hasBackdrop]="false">
-    <mat-drawer #drawer class="example-sidenav" mode="over">
+  <mat-drawer-container class="mp-browser-body"  [hasBackdrop]="false">
+    <mat-drawer #drawer class="example-sidenav" mode="side" position="start" (openedChange)="openChange($event)">
       <div class="full-page mat-drawer-inner-container">
+        <p>Auto-resizing sidenav{{drawer.opened}}</p>
+        <p>Lorem, ipsum dolor sit amet consectetur.</p>
         <button (click)="toggleDevTool()" mat-button>开发者</button>
       </div>
     </mat-drawer>
-    <mat-drawer-content class="full-page">
+    <mat-drawer-content>
       <mp-browser-content></mp-browser-content>
     </mat-drawer-content>
   </mat-drawer-container>
