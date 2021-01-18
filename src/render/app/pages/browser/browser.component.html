@@ -38,10 +38,8 @@
   </div>
   <mat-drawer-container class="mp-browser-body"  [hasBackdrop]="false">
     <mat-drawer #drawer class="example-sidenav" mode="side" position="start" (openedChange)="openChange($event)">
-      <div class="full-page mat-drawer-inner-container">
-        <p>Auto-resizing sidenav{{drawer.opened}}</p>
-        <p>Lorem, ipsum dolor sit amet consectetur.</p>
-        <button (click)="toggleDevTool()" mat-button>开发者</button>
+      <div class="full-page mat-drawer-inner-container" style="width: 240px;">
+       <mp-browser-web-mark></mp-browser-web-mark>
       </div>
     </mat-drawer>
     <mat-drawer-content>

@@ -24,9 +24,13 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {TabIconComponent} from './components/tab-icon/tab-icon.component';
 import {UrlEncodeModule} from "../../pipes/url-encode/url-encode.module";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {BrowserWebMarkComponent} from './components/browser-web-mark/browser-web-mark.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatListModule} from "@angular/material/list";
+import {MatTreeModule} from "@angular/material/tree";
 
 @NgModule({
-  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent],
+  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent, BrowserWebMarkComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -35,14 +39,17 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatIconModule,
     MatRippleModule,
     MatProgressSpinnerModule,
+    MatTreeModule,
+    MpBrowserWebviewModule,
+    MatAutocompleteModule,
+    MatSidenavModule,
+    MatListModule,
     ReactiveFormsModule,
     DragDropModule,
     MpWindowDragModule,
     MpWindowSelectModule,
     MpNavigationBarModule,
-    MpBrowserWebviewModule,
-    MatAutocompleteModule,
-    MatSidenavModule,
+
     NgxsModule.forFeature([BrowserState]),
     RouterModule.forChild([
       {
