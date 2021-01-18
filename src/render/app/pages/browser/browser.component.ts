@@ -13,7 +13,6 @@ import {BrowserTabEntity, RouteUtil} from "../../../../share";
 })
 export class BrowserComponent implements OnInit {
 
-
   @Select(BROWSER_STATE)
   $browserState: Observable<BrowserModel> | undefined;
 

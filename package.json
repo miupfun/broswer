@@ -34,7 +34,7 @@
     "@ngxs/store": "^3.7.1",
     "@types/node": "^12.11.1",
     "@types/uuid": "^8.3.0",
-    "electron": "^11.2.0",
+    "electron": "^11.0.3",
     "electron-builder": "^22.9.1",
     "ts-node": "~8.3.0",
     "tslib": "^2.0.0",
