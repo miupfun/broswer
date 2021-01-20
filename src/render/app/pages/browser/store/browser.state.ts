@@ -1,27 +1,32 @@
-import {Action, createSelector, Selector, State, StateContext, StateToken, Store} from "@ngxs/store";
+import {Action, createSelector, NgxsOnInit, Selector, State, StateContext, StateToken, Store} from "@ngxs/store";
 import {BrowserModel} from "./browser.model";
 import {
+  BrowserActionsAddWebHistory,
   BrowserActionsCloseTab,
   BrowserActionsCreateTab,
   BrowserActionsDropTab,
   BrowserActionsEditUrl,
   BrowserActionsFinishEditUrl,
   BrowserActionsHistoryGo,
+  BrowserActionsInitState,
   BrowserActionsSelectTab,
-  BrowserActionsSetTabTheme, BrowserActionsToggleDevTool,
+  BrowserActionsSetTabTheme,
+  BrowserActionsToggleDevTool,
   BrowserActionsUpdateTab
 } from "./browser.actions";
 import {of} from "rxjs";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
-import {BrowserTabEntity} from "../../../../../share/entitys/browser-tab.entity";
-import {Injectable} from "@angular/core";
+import {BrowserTabEntity} from "../../../../../share";
+import {Injectable, OnInit} from "@angular/core";
 import * as UUID from 'uuid'
 import {moveItemInArray} from "@angular/cdk/drag-drop";
 import {RepairType} from "@ngxs/store/operators/utils";
-import {BrowserViewEntity} from "../../../../../share/entitys/browser-view.entity";
+import {BrowserViewEntity} from "../../../../../share";
 import {ColorUtil} from "../../../utils/color.util";
 import {BrowserWebviewController} from "../../../components/broswer-webview";
-import {RouteUtil} from "../../../../../share/utils/route.util";
+import {RouteUtil} from "../../../../../share";
+import {StoreService} from "../../../services/store.service";
+import {UrlUtil} from "../../../utils/url.util";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -30,10 +35,34 @@ export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
   defaults: new BrowserModel()
 })
 @Injectable({providedIn: "root"})
-export class BrowserState {
-  constructor(private store: Store, private browserWebviewController: BrowserWebviewController) {
-    this.store.select(BrowserState).subscribe((v) => {
+export class BrowserState implements NgxsOnInit {
+  constructor(private store: Store,
+              private storeService: StoreService,
+              private browserWebviewController: BrowserWebviewController) {
+
+  }
+
+
+  ngxsOnInit(ctx?: StateContext<any>): any {
+    this.store.dispatch(new BrowserActionsInitState()).subscribe((v) => {
+      this.store.select(BrowserState).subscribe((v) => {
+        this.storeService.store(BROWSER_STATE.getName(), JSON.stringify(v))
+      })
     })
+  }
+
+  @Action(BrowserActionsInitState)
+  initState(ctx: StateContext<BrowserModel>) {
+    console.log('initState')
+    const oldData: string | null = this.storeService.get(BROWSER_STATE.getName())
+    if (oldData) {
+      return of(ctx.setState(JSON.parse(oldData)))
+    } else {
+      return this.store.dispatch(new BrowserActionsCreateTab({
+        url: RouteUtil.getPageUrl('new_tab'),
+        defaultIcon: 'icon-tab'
+      }))
+    }
   }
 
   @Action(BrowserActionsSelectTab)
@@ -79,7 +108,7 @@ export class BrowserState {
       },
       canGoBack: false,
       canGoForward: false,
-      loading:false
+      loading: false
     }
     const newBrowser: BrowserViewEntity = {
       id: newTab.id,
@@ -218,6 +247,20 @@ export class BrowserState {
     return of(ctx.getState())
   }
 
+  @Action(BrowserActionsAddWebHistory)
+  addHistory(ctx: StateContext<BrowserModel>, payload: BrowserActionsAddWebHistory) {
+    if (RouteUtil.isLocalUrl(payload.history.url)) {
+      return of(ctx.getState())
+    }
+    return of(ctx.setState(
+      patch(
+        {
+          history: insertItem(payload.history, 0),
+        }
+      )
+    ))
+  }
+
   @Selector()
   static currentTab(state: BrowserModel) {
     return state.tabs.find(t => t.id === state.currentTabId)
@@ -226,6 +269,11 @@ export class BrowserState {
   @Selector()
   static editTab(state: BrowserModel) {
     return state.tabs.find(t => t.id === state.editTabId)
+  }
+
+  @Selector()
+  static history(state: BrowserModel) {
+    return state.history
   }
 
   static selectTab(id: string) {
@@ -239,4 +287,6 @@ export class BrowserState {
       return state.browserViews.find(t => t.id === id)
     })
   }
+
+
 }

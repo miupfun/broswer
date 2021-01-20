@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {NestedTreeControl} from "@angular/cdk/tree";
-import {MatTreeNestedDataSource} from "@angular/material/tree";
-
+import {NestedTreeControl} from '@angular/cdk/tree';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {MatTreeNestedDataSource} from '@angular/material/tree';
+import {Select, Store} from "@ngxs/store";
+import {BrowserState} from "../../store/browser.state";
+import {Observable} from "rxjs";
+import {BrowserHistoryEntity} from "../../../../../../share";
+import {BrowserActionsCreateTab} from "../../store/browser.actions";
 
 /**
  * Food data with nested structure.
@@ -40,38 +44,32 @@ const TREE_DATA: FoodNode[] = [
   },
 ];
 
+/**
+ * @title Tree with nested nodes
+ */
 @Component({
   selector: 'mp-browser-web-mark',
   templateUrl: './browser-web-mark.component.html',
-  styleUrls: ['./browser-web-mark.component.scss']
+  styleUrls: ['./browser-web-mark.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
-export class BrowserWebMarkComponent implements OnInit {
-
+export class BrowserWebMarkComponent {
   treeControl = new NestedTreeControl<FoodNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FoodNode>();
 
-  constructor() {
+  constructor(private store: Store) {
     this.dataSource.data = TREE_DATA;
   }
 
+  @Select(BrowserState.history)
+  $viewHistory: Observable<BrowserHistoryEntity[]> | undefined
+
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
-  
 
-  ngOnInit(): void {
+
+  openNewTab(history: BrowserHistoryEntity) {
+    let currentTab = this.store.selectSnapshot(BrowserState.currentTab);
+    this.store.dispatch(new BrowserActionsCreateTab({url: history.url}, currentTab?.id)).subscribe(() => {
+    })
   }
-
-  step = 0;
-
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
 }

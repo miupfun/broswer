@@ -1,4 +1,9 @@
-import {BrowserTabEntity} from "../../../../../share/entitys/browser-tab.entity";
+import {BrowserTabEntity} from "../../../../../share";
+import {BrowserHistoryEntity} from "../../../../../share";
+
+export class BrowserActionsInitState {
+  static readonly type = '[browser] BrowserActionsInitState';
+}
 
 export class BrowserActionsCreateTab {
   static readonly type = '[browser] BrowserActionsCreateTab';
@@ -6,6 +11,7 @@ export class BrowserActionsCreateTab {
   constructor(public tabInfo: Partial<BrowserTabEntity>, public createTabId?: string) {
   }
 }
+
 
 export class BrowserActionsUpdateTab {
   static readonly type = '[browser] BrowserActionsUpdateTab'
@@ -68,6 +74,13 @@ export class BrowserActionsToggleDevTool {
   static readonly type = '[browser] BrowserActionsToggleDevTool'
 
   constructor() {
+  }
+}
+
+export class BrowserActionsAddWebHistory {
+  static readonly type = '[browser] BrowserActionsAddWebHistory'
+
+  constructor(public history: BrowserHistoryEntity) {
   }
 }
 

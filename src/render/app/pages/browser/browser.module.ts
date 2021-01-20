@@ -25,9 +25,11 @@ import {TabIconComponent} from './components/tab-icon/tab-icon.component';
 import {UrlEncodeModule} from "../../pipes/url-encode/url-encode.module";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserWebMarkComponent} from './components/browser-web-mark/browser-web-mark.component';
-import {MatExpansionModule} from "@angular/material/expansion";
 import {MatListModule} from "@angular/material/list";
 import {MatTreeModule} from "@angular/material/tree";
+import {CdkTreeModule} from "@angular/cdk/tree";
+import {MatTabsModule} from "@angular/material/tabs";
+import {CdkScrollableModule, ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent, BrowserWebMarkComponent],
@@ -40,6 +42,8 @@ import {MatTreeModule} from "@angular/material/tree";
     MatRippleModule,
     MatProgressSpinnerModule,
     MatTreeModule,
+    MatTabsModule,
+    ScrollingModule,
     MpBrowserWebviewModule,
     MatAutocompleteModule,
     MatSidenavModule,
@@ -58,6 +62,7 @@ import {MatTreeModule} from "@angular/material/tree";
       }
     ]),
     UrlEncodeModule,
+    CdkTreeModule,
 
   ],
 })

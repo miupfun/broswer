@@ -1,6 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Store} from "@ngxs/store";
-import {BrowserActionsCloseTab, BrowserActionsCreateTab, BrowserActionsUpdateTab} from "../../store/browser.actions";
+import {
+  BrowserActionsAddWebHistory,
+  BrowserActionsCloseTab,
+  BrowserActionsCreateTab,
+  BrowserActionsUpdateTab
+} from "../../store/browser.actions";
 import {BrowserViewEntity} from "../../../../../../share/entitys/browser-view.entity";
 import {
   DidChangeThemeColorEvent,
@@ -25,6 +30,11 @@ export class BrowserContentItemComponent implements OnInit {
   @ViewChild(BrowserWebviewComponent)
   webview: BrowserWebviewComponent | undefined;
 
+  currentIcon: string | undefined;
+  currentTheme: string | undefined;
+  currentUrl: string | undefined;
+  currentTitle: string | undefined;
+
   constructor(private store: Store) {
   }
 
@@ -33,22 +43,25 @@ export class BrowserContentItemComponent implements OnInit {
 
   themeChange(e: DidChangeThemeColorEvent) {
     if (!this.browser) return
+    this.currentTheme = e.themeColor
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-      theme: e.themeColor
+      theme: this.currentTheme
     }))
   }
 
   titleChange(e: PageTitleUpdatedEvent) {
     if (!this.browser) return
+    this.currentTitle = e.title
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-      title: e.title
+      title: this.currentTitle
     }))
   }
 
   iconChange(icons: PageFaviconUpdatedEvent) {
     if (!this.browser) return
+    this.currentIcon = icons.favicons[icons.favicons.length - 1]
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-      icon: icons.favicons[icons.favicons.length - 1]
+      icon: this.currentIcon
     }))
   }
 
@@ -61,27 +74,39 @@ export class BrowserContentItemComponent implements OnInit {
 
   didStartLoading($event: DidNavigateInPageEvent | any) {
     if (!this.browser) return
+    this.currentUrl = $event.target.src
+    this.currentTitle = $event.target.getTitle()
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-      url: $event.target.src,
-      title: $event.target.getTitle(),
-      loading:true
+      url: this.currentUrl,
+      title: this.currentTitle,
+      loading: true
     }))
   }
 
   didFinishLoad($event: DidFrameFinishLoadEvent | any) {
     if (!this.browser) return
     this.webview?.instance.focus()
+    this.currentUrl = $event.target.src
+    this.currentTitle = $event.target.getTitle()
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-      url: $event.target.src,
-      title: $event.target.getTitle(),
-      loading:false
-    }))
+      url: this.currentUrl,
+      title: this.currentTitle,
+      loading: false
+    })).subscribe(() => {
+      this.store.dispatch(new BrowserActionsAddWebHistory({
+        url: this.currentUrl || '',
+        title: this.currentTitle || '',
+        icon: this.currentIcon || '',
+        time: new Date()
+      }))
+    })
+
   }
 
   didStopLoading($event: Event) {
     if (!this.browser) return
     this.store.dispatch(new BrowserActionsUpdateTab(this.browser.id, {
-      loading:false
+      loading: false
     }))
   }
 

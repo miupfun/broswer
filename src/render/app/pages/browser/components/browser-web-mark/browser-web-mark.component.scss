@@ -1,0 +1,77 @@
+.web-mark-tab {
+  background-color: transparent !important;
+  height: 100%;
+  width: 380px;
+  overflow: hidden;
+
+  .web-mark-tab-label {
+    color: var(--navigationbar-color) !important;
+  }
+  .mat-tab-body-wrapper{
+    height: 100%;
+  }
+  .web-mark-tab-body{
+  }
+
+
+  .mark-container{
+    .web-mark-tree {
+      background-color: transparent !important;
+
+      .mat-tree-node, .mat-nested-tree-node {
+        color: var(--navigationbar-color) !important;
+      }
+
+      ul, li {
+        margin-top: 0;
+        margin-bottom: 0;
+        list-style-type: none;
+      }
+
+      .tree-invisible {
+        display: none;
+      }
+    }
+  }
+  
+
+  .history-container {
+    padding: 10px;
+    box-sizing: border-box;
+    height: 100%;
+
+    .history-item {
+      height: 50px;
+      padding: 5px;
+      cursor: pointer;
+
+      .history-icon {
+        width: 25px;
+      }
+
+      .history-body {
+        width: calc(100% - 25px);
+
+        p {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .title {
+
+        }
+
+        .url {
+          font-size: 12px;
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
+
+
+
+

@@ -1,27 +1,54 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-  <!-- This is the tree node template for leaf nodes -->
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-    <li class="mat-tree-node">
-      <!-- use a disabled button to provide padding for tree leaf -->
-      <button mat-icon-button disabled></button>
-      {{node.name}}
-    </li>
-  </mat-tree-node>
-  <!-- This is the tree node template for expandable nodes -->
-  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-    <li>
-      <div class="mat-tree-node">
-        <button mat-icon-button matTreeNodeToggle
-                [attr.aria-label]="'Toggle ' + node.name">
-          <mat-icon class="mat-icon-rtl-mirror">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-          </mat-icon>
-        </button>
-        {{node.name}}
+<mat-tab-group mat-align-tabs="center" animationDuration="100ms" class="web-mark-tab">
+  <mat-tab class="web-mark-tab-body">
+    <ng-template mat-tab-label>
+      <p class="web-mark-tab-label">
+        <mat-icon>star</mat-icon>
+      </p>
+    </ng-template>
+    <div class="mark-container">
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="web-mark-tree full-width">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+          <li class="mat-tree-node">
+            {{node.name}}
+          </li>
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <li>
+            <div class="mat-tree-node" fxLayout="row" fxLayoutAlign="start center" matTreeNodeToggle mat-ripple>
+              <mat-icon>
+                {{treeControl.isExpanded(node) ? 'folder' : 'folder_open'}}
+              </mat-icon>
+              <p class="">{{node.name}}</p>
+            </div>
+            <ul [class.tree-invisible]="!treeControl.isExpanded(node)">
+              <ng-container matTreeNodeOutlet></ng-container>
+            </ul>
+          </li>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </div>
+  </mat-tab>
+  <mat-tab class="web-mark-tab-body">
+    <ng-template mat-tab-label>
+      <p class="web-mark-tab-label">
+        <mat-icon>history</mat-icon>
+      </p>
+    </ng-template>
+    <cdk-virtual-scroll-viewport [itemSize]="1000" *ngIf="$viewHistory |async as viewHistory" class="history-container">
+      <div *cdkVirtualFor="let history of viewHistory"
+           class="history-item" matRipple
+           fxLayout="row" fxLayoutAlign="start center"
+           (click)="openNewTab(history)"
+      >
+        <div class="history-icon">
+          <img *ngIf="history.icon" [src]="history.icon" style="width: 20px;">
+          <i *ngIf="!history.icon" class="iconfont icon-empty" style="font-size: 20px"></i>
+        </div>
+        <div class="history-body">
+          <p class="title">{{history.title || history.title}}</p>
+          <p class="url">{{history.url}}</p>
+        </div>
       </div>
-      <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
-        <ng-container matTreeNodeOutlet></ng-container>
-      </ul>
-    </li>
-  </mat-nested-tree-node>
-</mat-tree>
+    </cdk-virtual-scroll-viewport>
+  </mat-tab>
+</mat-tab-group>

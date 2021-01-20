@@ -1,9 +1,7 @@
 @mixin miup-component-divider() {
   :root {
     --miup-divider-style: 2px solid var(--foreground-divider);
-
   }
-
   .miup-divider-container {
     display: flex;
     align-items: center;
@@ -17,7 +15,6 @@
     &.right {
       justify-content: flex-end;
     }
-
 
     .divider__line {
       flex: 1;

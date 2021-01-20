@@ -34,7 +34,7 @@ export class BrowserWebviewController {
         webview.instance.executeJavaScript(`history.forward()`).then()
         break
       case -1:
-        webview.instance.executeJavaScript(`history.back()`).then()
+        webview.instance.canGoBack() ? webview.instance.executeJavaScript(`history.back()`).then() : webview.instance.reload()
         break
       default:
         webview.instance.reloadIgnoringCache()

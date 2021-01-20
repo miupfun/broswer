@@ -98,12 +98,17 @@ export class BrowserWebviewComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngAfterViewInit(): void {
     this.instance.addEventListener('load-commit', (e) => this.loadCommit.emit(e))
-    this.instance.addEventListener('did-finish-load', (e) => this.didFinishLoad.emit(e))
+    this.instance.addEventListener('did-finish-load', (e) => {
+      this.instance.insertCSS('html{background-color:#fff}').then()
+      this.didFinishLoad.emit(e)
+    })
     this.instance.addEventListener('did-fail-load', (e) => this.didFailLoad.emit(e))
     this.instance.addEventListener('did-frame-finish-load', (e) => this.didFrameFinishLoad.emit(e))
     this.instance.addEventListener('did-start-loading', (e) => this.didStartLoading.emit(e))
     this.instance.addEventListener('did-stop-loading', (e) => this.didStopLoading.emit(e))
-    this.instance.addEventListener('dom-ready', (e) => this.domReady.emit(e))
+    this.instance.addEventListener('dom-ready', (e) => {
+      this.domReady.emit(e)
+    })
     this.instance.addEventListener('page-title-updated', (e) => this.pageTitleUpdate.emit(e))
     this.instance.addEventListener('page-favicon-updated', (e) => this.pageFaviconUpdated.emit(e))
     this.instance.addEventListener('did-change-theme-color', (e) => this.didChangeThemeColor.emit(e))

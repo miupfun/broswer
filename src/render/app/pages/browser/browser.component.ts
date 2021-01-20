@@ -31,7 +31,6 @@ export class BrowserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createNewTab()
   }
 
   createNewTab() {
