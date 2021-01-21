@@ -5,6 +5,14 @@ export class BrowserActionsInitState {
   static readonly type = '[browser] BrowserActionsInitState';
 }
 
+
+export class BrowserActionsToggleHtmlFullscreen {
+  static readonly type = '[browser] BrowserActionsToggleHtml';
+
+  constructor(public fullscreen: boolean) {
+  }
+}
+
 export class BrowserActionsCreateTab {
   static readonly type = '[browser] BrowserActionsCreateTab';
 
@@ -79,7 +87,7 @@ export class BrowserActionsToggleDevTool {
 export class BrowserActionsNavigationTo {
   static readonly type = '[browser] BrowserActionsNavigationTo'
 
-  constructor(public tabId: string,public toUrl: string) {
+  constructor(public tabId: string, public toUrl: string) {
   }
 }
 

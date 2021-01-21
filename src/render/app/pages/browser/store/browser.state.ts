@@ -8,25 +8,25 @@ import {
   BrowserActionsEditUrl,
   BrowserActionsFinishEditUrl,
   BrowserActionsHistoryGo,
-  BrowserActionsInitState, BrowserActionsNavigationTo,
+  BrowserActionsInitState,
+  BrowserActionsNavigationTo,
   BrowserActionsSelectTab,
   BrowserActionsSetTabTheme,
   BrowserActionsToggleDevTool,
+  BrowserActionsToggleHtmlFullscreen,
   BrowserActionsUpdateTab
 } from "./browser.actions";
 import {of} from "rxjs";
 import {append, insertItem, patch, removeItem, updateItem} from "@ngxs/store/operators";
-import {BrowserTabEntity} from "../../../../../share";
-import {Injectable, OnInit} from "@angular/core";
+import {BrowserTabEntity, BrowserViewEntity, RouteUtil} from "../../../../../share";
+import {Injectable} from "@angular/core";
 import * as UUID from 'uuid'
 import {moveItemInArray} from "@angular/cdk/drag-drop";
 import {RepairType} from "@ngxs/store/operators/utils";
-import {BrowserViewEntity} from "../../../../../share";
 import {ColorUtil} from "../../../utils/color.util";
 import {BrowserWebviewController} from "../../../components/broswer-webview";
-import {RouteUtil} from "../../../../../share";
 import {StoreService} from "../../../services/store.service";
-import {UrlUtil} from "../../../utils/url.util";
+import * as path from "path";
 
 export const BROWSER_STATE = new StateToken<BrowserModel>('browser')
 
@@ -63,6 +63,17 @@ export class BrowserState implements NgxsOnInit {
         defaultIcon: 'icon-tab'
       }))
     }
+  }
+
+  @Action(BrowserActionsToggleHtmlFullscreen)
+  toggleFullscreen(ctx: StateContext<BrowserModel>, payload: BrowserActionsToggleHtmlFullscreen) {
+    return of(
+      ctx.setState(
+        patch({
+          htmlFullscreen: payload.fullscreen
+        })
+      )
+    )
   }
 
   @Action(BrowserActionsSelectTab)

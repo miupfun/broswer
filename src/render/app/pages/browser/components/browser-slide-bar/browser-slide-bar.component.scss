@@ -1,0 +1,27 @@
+.web-mark-tab {
+  background-color: transparent !important;
+  height: 100%;
+  width: 320px;
+  overflow: hidden;
+  .mat-tab-labels{
+    .mat-tab-label{
+      width: 50%;
+      height: 36px;
+      .web-mark-tab-label {
+        color: var(--navigation-bar-color) !important;
+      }
+    }
+  }
+  .mat-ink-bar{
+    background-color: var(--navigation-bar-color) !important;
+  }
+
+  .mat-tab-body-wrapper{
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .cdk-virtual-scroll-content-wrapper{
+    width: 100%;
+  }
+}

@@ -1,5 +1,4 @@
 export class ColorUtil {
-
   static colorHex(str: string): string {
     let i;
     const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
@@ -33,7 +32,6 @@ export class ColorUtil {
     }
     return that;
   }
-
 
   static colorRgb(str: string): string {
     let i;
@@ -72,7 +70,7 @@ export class ColorUtil {
     brightness = (red * 299) + (green * 587) + (blue * 114);
     brightness = brightness / 255000;
     if (brightness >= 0.5) {
-      return "#000";
+      return "#303030";
     }
     return "#fff";
   }

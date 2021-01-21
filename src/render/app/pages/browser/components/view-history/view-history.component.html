@@ -1,18 +1,20 @@
-<cdk-virtual-scroll-viewport [itemSize]="50" [minBufferPx]="50*100" [maxBufferPx]="50*101"
+<cdk-virtual-scroll-viewport [itemSize]="48" [minBufferPx]="48*50" [maxBufferPx]="48*100"
                              *ngIf="$viewHistory |async as viewHistory" class="history-container">
   <div *cdkVirtualFor="let history of viewHistory"
        class="history-item"
        matRipple
        fxLayout="row" fxLayoutAlign="start center"
-       (click)="openNewTab(history)"
-  >
+       (click)="openNewTab(history)">
     <div class="history-icon">
       <img *ngIf="history.icon" [src]="history.icon" style="width: 20px;">
       <i *ngIf="!history.icon" class="iconfont icon-empty" style="font-size: 20px"></i>
     </div>
     <div class="history-body">
       <p class="title">{{history.title || history.title}}</p>
-      <p class="url">{{history.url}}</p>
+      <div class="sub-title" fxLayout="row" fxLayoutAlign="start">
+        <p class="url" fxFlex="1 1 100%">{{history.url|mpUrlHost}}</p>
+        <p class="time" fxFlex="100px">{{history.time|mpTimeLong}}</p>
+      </div>
     </div>
   </div>
 </cdk-virtual-scroll-viewport>

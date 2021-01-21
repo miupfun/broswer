@@ -6,6 +6,7 @@ import {BrowserHistoryEntity} from "../../../../../share";
 export class BrowserModel {
   currentTabId: string | null = null;
   editTabId: string | null = null;
+  htmlFullscreen: boolean = false
   tabs: BrowserTabEntity[] = [];
   browserViews: BrowserViewEntity[] = [];
   navigationBarConfig: NavigationBarConfigEntity = new NavigationBarConfigEntity();

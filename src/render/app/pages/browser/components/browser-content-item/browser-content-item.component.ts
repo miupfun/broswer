@@ -3,7 +3,7 @@ import {Store} from "@ngxs/store";
 import {
   BrowserActionsAddWebHistory,
   BrowserActionsCloseTab,
-  BrowserActionsCreateTab,
+  BrowserActionsCreateTab, BrowserActionsToggleHtmlFullscreen,
   BrowserActionsUpdateTab
 } from "../../store/browser.actions";
 import {BrowserViewEntity} from "../../../../../../share";
@@ -110,6 +110,14 @@ export class BrowserContentItemComponent implements OnInit {
   close(event: Event) {
     if (!this.browser) return
     this.store.dispatch(new BrowserActionsCloseTab(this.browser.id))
+  }
+
+  enterHtmlFullScreen(e: Event) {
+    this.store.dispatch(new BrowserActionsToggleHtmlFullscreen(true))
+  }
+
+  leaveHtmlFullScreen(e: Event) {
+    this.store.dispatch(new BrowserActionsToggleHtmlFullscreen(false))
   }
 
   addHistory() {

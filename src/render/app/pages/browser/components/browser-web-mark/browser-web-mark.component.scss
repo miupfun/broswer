@@ -1,44 +1,17 @@
-.web-mark-tab {
+.web-mark-tree {
   background-color: transparent !important;
-  height: 100%;
-  width: 380px;
-  overflow: hidden;
 
-  .web-mark-tab-label {
-    color: var(--navigationbar-color) !important;
-  }
-  .mat-tab-body-wrapper{
-    height: 100%;
-  }
-  .web-mark-tab-body{
+  .mat-tree-node, .mat-nested-tree-node {
+    color: var(--navigation-bar-color) !important;
   }
 
-
-  .mark-container{
-    .web-mark-tree {
-      background-color: transparent !important;
-
-      .mat-tree-node, .mat-nested-tree-node {
-        color: var(--navigationbar-color) !important;
-      }
-
-      ul, li {
-        margin-top: 0;
-        margin-bottom: 0;
-        list-style-type: none;
-      }
-
-      .tree-invisible {
-        display: none;
-      }
-    }
+  ul, li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
   }
 
-  .cdk-virtual-scroll-content-wrapper{
-    width: 100%;
+  .tree-invisible {
+    display: none;
   }
 }
-
-
-
-

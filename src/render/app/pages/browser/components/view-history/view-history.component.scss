@@ -1,18 +1,17 @@
 .history-container {
-  padding: 10px;
-  box-sizing: border-box;
   height: 100%;
   width: 100%;
 
-
   .history-item {
-    height: 50px;
+    height: 48px;
     width: 100%;
     padding: 5px;
     cursor: pointer;
+
     .history-icon {
       width: 25px;
     }
+
     .history-body {
       width: calc(100% - 25px);
 
@@ -24,12 +23,19 @@
       }
 
       .title {
-
       }
 
-      .url {
+      .sub-title {
         font-size: 12px;
         opacity: 0.6;
+        margin-top: 5px;
+        
+        .url {
+        }
+
+        .time {
+          text-align: right;
+        }
       }
     }
   }

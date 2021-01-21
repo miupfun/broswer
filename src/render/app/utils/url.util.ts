@@ -1,3 +1,4 @@
+import * as Url from 'url';
 export class UrlUtil {
   public static format(url: string) {
     url = url.trimLeft()
@@ -13,5 +14,10 @@ export class UrlUtil {
       return true
     }
     return false
+  }
+
+  public static parse(url: string) {
+    const parsedUrl = Url.parse(url)
+    return parsedUrl
   }
 }

@@ -1,4 +1,6 @@
-<div class="full-page" *ngIf="$browserState |async as browserModel"
+<div class="browser-page full-page"
+     *ngIf="$browserState |async as browserModel"
+     [class.fullscreen]="browserModel?.htmlFullscreen"
      [style]="{
      '--navigation-bar-bg':browserModel.navigationBarConfig.backgroundColor,
      '--navigation-bar-color':browserModel.navigationBarConfig.foregroundColor
@@ -10,16 +12,13 @@
       </div>
       <div class="full-page" *ngIf="!browserModel.editTabId" fxLayout="row">
         <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                  (click)="drawer.toggle()">
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="drawer.toggle()">
             <i class="iconfont icon-menu" [class.opened]="drawer.opened"></i>
           </button>
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                  (click)="historyGo(-1)">
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(-1)">
             <i class="iconfont icon-left"></i>
           </button>
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
-                  (click)="historyGo(1)">
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="historyGo(1)">
             <i class="iconfont icon-right"></i>
           </button>
         </div>
@@ -34,10 +33,10 @@
       </div>
     </mp-navigation-bar>
   </div>
-  <mat-drawer-container class="mp-browser-body"  [hasBackdrop]="false">
-    <mat-drawer #drawer class="example-sidenav" mode="side" position="start" (openedChange)="openChange($event)">
+  <mat-drawer-container class="mp-browser-body" [hasBackdrop]="false">
+    <mat-drawer #drawer class="mp-browser-sidenav" mode="push" position="start" (openedChange)="openChange($event)">
       <div class="full-page mat-drawer-inner-container" style="width: 240px;">
-       <mp-browser-web-mark></mp-browser-web-mark>
+        <mp-browser-slide-bar></mp-browser-slide-bar>
       </div>
     </mat-drawer>
     <mat-drawer-content>
