@@ -3,10 +3,10 @@
 
 @include miup-theme();
 :root {
-  --navigationbar-bg: var(--background-background);
-  --navigationbar-color: var(--foreground-base);
-  --navigationbar-active-bg: rgba(var(--foreground-base-rgb), 0.2);
-  --navigationbar-active-color: var(--navigationbar-color);
+  --navigation-bar-bg: var(--background-background);
+  --navigation-bar-color: var(--foreground-base);
+  --navigation-bar-active-bg: rgba(var(--foreground-base-rgb), 0.2);
+  --navigation-bar-active-color: var(--navigationbar-color);
   --browser-tab-active-bg: rgba(var(--foreground-base-rgb), 0.3);
   --browser-view-default-bg: #f4f6f8;
 }

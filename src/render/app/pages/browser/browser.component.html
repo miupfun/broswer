@@ -1,11 +1,9 @@
 <div class="full-page" *ngIf="$browserState |async as browserModel"
      [style]="{
-     '--navigationbar-bg':browserModel.navigationBarConfig.backgroundColor,
-     '--navigationbar-color':browserModel.navigationBarConfig.foregroundColor
-     }"
->
-  <div class="mp-browser-header full-width"
-  >
+     '--navigation-bar-bg':browserModel.navigationBarConfig.backgroundColor,
+     '--navigation-bar-color':browserModel.navigationBarConfig.foregroundColor
+     }">
+  <div class="mp-browser-header full-width">
     <mp-navigation-bar>
       <div class="full-page" *ngIf="browserModel.editTabId">
         <mp-tab-url-edit></mp-tab-url-edit>
@@ -16,14 +14,6 @@
                   (click)="drawer.toggle()">
             <i class="iconfont icon-menu" [class.opened]="drawer.opened"></i>
           </button>
-        </div>
-        <div class="" fxFlex="1 1" style="overflow: hidden">
-          <mp-browser-tab></mp-browser-tab>
-        </div>
-        <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
-          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
-            <i class="iconfont icon-add"></i>
-          </button>
           <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple
                   (click)="historyGo(-1)">
             <i class="iconfont icon-left"></i>
@@ -33,12 +23,20 @@
             <i class="iconfont icon-right"></i>
           </button>
         </div>
+        <div class="" fxFlex="1 1" style="overflow: hidden">
+          <mp-browser-tab></mp-browser-tab>
+        </div>
+        <div class="navigation-bar-menus" mpWinDrag="false" fxLayout="row">
+          <button fxFlexAlign="center" class="navigation-bar-menu-item" matRipple (click)="createNewTab()">
+            <i class="iconfont icon-add"></i>
+          </button>
+        </div>
       </div>
     </mp-navigation-bar>
   </div>
   <mat-drawer-container class="mp-browser-body"  [hasBackdrop]="false">
     <mat-drawer #drawer class="example-sidenav" mode="side" position="start" (openedChange)="openChange($event)">
-      <div class="full-page mat-drawer-inner-container">
+      <div class="full-page mat-drawer-inner-container" style="width: 240px;">
        <mp-browser-web-mark></mp-browser-web-mark>
       </div>
     </mat-drawer>

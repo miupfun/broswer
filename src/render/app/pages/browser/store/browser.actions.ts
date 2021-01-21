@@ -48,7 +48,6 @@ export class BrowserActionsSetTabTheme {
   }
 }
 
-
 export class BrowserActionsHistoryGo {
   static readonly type = '[browser] BrowserActionsHistoryGo'
 
@@ -74,6 +73,13 @@ export class BrowserActionsToggleDevTool {
   static readonly type = '[browser] BrowserActionsToggleDevTool'
 
   constructor() {
+  }
+}
+
+export class BrowserActionsNavigationTo {
+  static readonly type = '[browser] BrowserActionsNavigationTo'
+
+  constructor(public tabId: string,public toUrl: string) {
   }
 }
 

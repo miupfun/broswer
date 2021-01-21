@@ -27,10 +27,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {BrowserWebMarkComponent} from './components/browser-web-mark/browser-web-mark.component';
 import {MatListModule} from "@angular/material/list";
 import {MatTreeModule} from "@angular/material/tree";
-import {CdkTreeModule} from "@angular/cdk/tree";
-import {MatTabsModule} from "@angular/material/tabs";
+import {ViewHistoryComponent} from "./components/view-history/view-history.component";
 import {ScrollingModule} from "@angular/cdk/scrolling";
-import { ViewHistoryComponent } from './components/view-history/view-history.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent, BrowserWebMarkComponent, ViewHistoryComponent],
@@ -43,17 +42,18 @@ import { ViewHistoryComponent } from './components/view-history/view-history.com
     MatRippleModule,
     MatProgressSpinnerModule,
     MatTreeModule,
-    MatTabsModule,
-    ScrollingModule,
-    MpBrowserWebviewModule,
     MatAutocompleteModule,
     MatSidenavModule,
     MatListModule,
+    MatTabsModule,
+    ScrollingModule,
     ReactiveFormsModule,
     DragDropModule,
     MpWindowDragModule,
     MpWindowSelectModule,
     MpNavigationBarModule,
+    MpBrowserWebviewModule,
+
 
     NgxsModule.forFeature([BrowserState]),
     RouterModule.forChild([
@@ -63,7 +63,6 @@ import { ViewHistoryComponent } from './components/view-history/view-history.com
       }
     ]),
     UrlEncodeModule,
-    CdkTreeModule,
 
   ],
 })

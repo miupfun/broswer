@@ -6,7 +6,7 @@ import {
   BrowserActionsCreateTab,
   BrowserActionsUpdateTab
 } from "../../store/browser.actions";
-import {BrowserViewEntity} from "../../../../../../share/entitys/browser-view.entity";
+import {BrowserViewEntity} from "../../../../../../share";
 import {
   DidChangeThemeColorEvent,
   DidFrameFinishLoadEvent,
@@ -22,7 +22,6 @@ import {BrowserWebviewComponent} from "../../../../components/broswer-webview";
   styleUrls: ['./browser-content-item.component.scss']
 })
 export class BrowserContentItemComponent implements OnInit {
-
 
   @Input('browser')
   browser: BrowserViewEntity | undefined;
@@ -65,7 +64,6 @@ export class BrowserContentItemComponent implements OnInit {
     }))
   }
 
-
   createTab(winOption: Event | any) {
     if (!this.browser) return
     this.store.dispatch(new BrowserActionsCreateTab({url: winOption.url}, this.browser.id,)).subscribe(() => {
@@ -93,12 +91,7 @@ export class BrowserContentItemComponent implements OnInit {
       title: this.currentTitle,
       loading: false
     })).subscribe(() => {
-      this.store.dispatch(new BrowserActionsAddWebHistory({
-        url: this.currentUrl || '',
-        title: this.currentTitle || '',
-        icon: this.currentIcon || '',
-        time: new Date()
-      }))
+      this.addHistory()
     })
 
   }
@@ -117,5 +110,16 @@ export class BrowserContentItemComponent implements OnInit {
   close(event: Event) {
     if (!this.browser) return
     this.store.dispatch(new BrowserActionsCloseTab(this.browser.id))
+  }
+
+  addHistory() {
+    setTimeout(() => {
+      this.store.dispatch(new BrowserActionsAddWebHistory({
+        url: this.currentUrl || '',
+        title: this.currentTitle || '',
+        icon: this.currentIcon || '',
+        time: new Date()
+      }))
+    }, 1000)
   }
 }

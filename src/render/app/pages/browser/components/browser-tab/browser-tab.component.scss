@@ -4,8 +4,8 @@
   .browser-tab-item-container {
     min-width: 40px;
     overflow: hidden;
-    color: var(--navigationbar-color);
-    background-color: var(--navigationbar-bg);
+    color: var(--navigation-bar-color);
+    background-color: var(--navigation-bar-bg);
     transition: background 300ms ease-in;
   }
 }

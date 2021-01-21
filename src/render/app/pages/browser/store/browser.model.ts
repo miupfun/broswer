@@ -1,6 +1,6 @@
-import {BrowserTabEntity} from "../../../../../share/entitys/browser-tab.entity";
-import {BrowserViewEntity} from "../../../../../share/entitys/browser-view.entity";
-import {NavigationBarConfigEntity} from "../../../../../share/entitys/navigation-bar-config.entity";
+import {BrowserTabEntity} from "../../../../../share";
+import {BrowserViewEntity} from "../../../../../share";
+import {NavigationBarConfigEntity} from "../../../../../share";
 import {BrowserHistoryEntity} from "../../../../../share";
 
 export class BrowserModel {

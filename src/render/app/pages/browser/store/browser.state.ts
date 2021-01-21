@@ -8,7 +8,7 @@ import {
   BrowserActionsEditUrl,
   BrowserActionsFinishEditUrl,
   BrowserActionsHistoryGo,
-  BrowserActionsInitState,
+  BrowserActionsInitState, BrowserActionsNavigationTo,
   BrowserActionsSelectTab,
   BrowserActionsSetTabTheme,
   BrowserActionsToggleDevTool,
@@ -239,6 +239,13 @@ export class BrowserState implements NgxsOnInit {
     return of(ctx.patchState({
       editTabId: null
     }))
+  }
+
+  @Action(BrowserActionsNavigationTo)
+  navigationTo(ctx: StateContext<BrowserModel>, payload: BrowserActionsNavigationTo) {
+    return of(
+      this.browserWebviewController.navigationTo(payload.tabId, payload.toUrl)
+    )
   }
 
   @Action(BrowserActionsToggleDevTool)

@@ -3,7 +3,11 @@ import {Select, Store} from "@ngxs/store";
 import {BrowserState} from "../../store/browser.state";
 import {Observable} from "rxjs";
 import {BrowserHistoryEntity} from "../../../../../../share";
-import {BrowserActionsCreateTab} from "../../store/browser.actions";
+import {
+  BrowserActionsCreateTab,
+  BrowserActionsFinishEditUrl,
+  BrowserActionsNavigationTo
+} from "../../store/browser.actions";
 
 @Component({
   selector: 'mp-view-history',
@@ -21,8 +25,9 @@ export class ViewHistoryComponent implements OnInit {
 
   openNewTab(history: BrowserHistoryEntity) {
     let currentTab = this.store.selectSnapshot(BrowserState.currentTab);
-    this.store.dispatch(new BrowserActionsCreateTab({url: history.url}, currentTab?.id)).subscribe(() => {
-    })
+    if (currentTab) {
+      this.store.dispatch(new BrowserActionsNavigationTo(currentTab.id, history.url))
+    }
   }
 
   ngOnInit(): void {
