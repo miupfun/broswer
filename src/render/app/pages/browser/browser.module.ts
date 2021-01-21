@@ -29,10 +29,11 @@ import {MatListModule} from "@angular/material/list";
 import {MatTreeModule} from "@angular/material/tree";
 import {CdkTreeModule} from "@angular/cdk/tree";
 import {MatTabsModule} from "@angular/material/tabs";
-import {CdkScrollableModule, ScrollingModule} from "@angular/cdk/scrolling";
+import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ViewHistoryComponent } from './components/view-history/view-history.component';
 
 @NgModule({
-  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent, BrowserWebMarkComponent],
+  declarations: [BrowserComponent, BrowserTabComponent, BrowserContentComponent, BrowserTabItemComponent, BrowserContentItemComponent, TabUrlEditComponent, TabIconComponent, BrowserWebMarkComponent, ViewHistoryComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

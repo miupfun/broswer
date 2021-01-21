@@ -57,16 +57,17 @@ export class BrowserWebMarkComponent {
   treeControl = new NestedTreeControl<FoodNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FoodNode>();
 
-  constructor(private store: Store) {
-    this.dataSource.data = TREE_DATA;
-  }
 
-  @Select(BrowserState.history)
-  $viewHistory: Observable<BrowserHistoryEntity[]> | undefined
+
 
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
 
 
+  constructor(private store: Store) {
+    this.dataSource.data = TREE_DATA;
+  }
+  @Select(BrowserState.history)
+  $viewHistory: Observable<BrowserHistoryEntity[]> | undefined
   openNewTab(history: BrowserHistoryEntity) {
     let currentTab = this.store.selectSnapshot(BrowserState.currentTab);
     this.store.dispatch(new BrowserActionsCreateTab({url: history.url}, currentTab?.id)).subscribe(() => {
